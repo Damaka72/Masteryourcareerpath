@@ -609,6 +609,94 @@
     .quiz-retake:hover { opacity: 1; }
 
     /* ============================================================
+       OVERDELIVERY PRINCIPLE
+       ============================================================ */
+    #overdelivery {
+      background: var(--navy);
+      padding: 96px 0;
+    }
+
+    .compare-table {
+      margin-top: 56px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .compare-header {
+      display: grid;
+      grid-template-columns: 180px 1fr 1fr;
+      gap: 24px;
+      padding: 14px 28px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .compare-header > div {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 1fr;
+      gap: 24px;
+      padding: 22px 28px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      align-items: center;
+      transition: background var(--transition);
+    }
+
+    .compare-row:hover { background: rgba(255,255,255,0.03); }
+
+    .compare-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 99px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .compare-others {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .compare-others::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .compare-prime {
+      font-size: 0.875rem;
+      color: var(--white);
+      line-height: 1.5;
+      font-weight: 500;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .compare-prime::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 3px;
+      width: 14px;
+      height: 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23F5A623'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+
+    /* ============================================================
        PRICING TIERS
        ============================================================ */
     #pricing {
@@ -618,8 +706,8 @@
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
       margin-top: 56px;
       align-items: stretch;
     }
@@ -627,7 +715,7 @@
     .pricing-card {
       background: var(--white);
       border-radius: var(--radius-lg);
-      padding: 40px 32px;
+      padding: 36px 24px;
       border: 2px solid var(--light-grey);
       display: flex;
       flex-direction: column;
@@ -657,6 +745,9 @@
       border-radius: 99px;
       white-space: nowrap;
     }
+
+    .pricing-badge--navy { background: var(--navy); }
+    .pricing-badge--dark  { background: var(--text-dark); }
 
     .pricing-subtitle {
       font-size: 0.75rem;
@@ -1508,6 +1599,47 @@
   </section>
 
   <!-- ============================================================
+       OVERDELIVERY PRINCIPLE
+       ============================================================ -->
+  <section id="overdelivery">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <span class="eyebrow">The PRIME Philosophy</span>
+        <h2 class="section-heading section-heading--white">Most coaches hold back.<br/>Didi doesn&rsquo;t.</h2>
+        <p class="section-sub section-sub--white" style="margin:0 auto;">The Overdelivery Principle: give so much value at every level that people think &ldquo;if this is free, what&rsquo;s the paid stuff like?&rdquo;</p>
+      </div>
+
+      <div class="compare-table fade-in delay-1">
+        <div class="compare-header">
+          <div>Level</div>
+          <div>What others do</div>
+          <div>What PRIME does</div>
+        </div>
+        <div class="compare-row">
+          <div><span class="compare-tag">Free</span></div>
+          <div class="compare-others">Vague tips and teasers</div>
+          <div class="compare-prime">Genuinely useful frameworks you can act on today</div>
+        </div>
+        <div class="compare-row">
+          <div><span class="compare-tag">Membership</span></div>
+          <div class="compare-others">Basic course + community</div>
+          <div class="compare-prime">Full course + templates + tools + live calls + AI-enhanced resources</div>
+        </div>
+        <div class="compare-row">
+          <div><span class="compare-tag">Cohort</span></div>
+          <div class="compare-others">Group calls</div>
+          <div class="compare-prime">Group calls + personal feedback + accountability + done-with-you work</div>
+        </div>
+        <div class="compare-row">
+          <div><span class="compare-tag">1:1</span></div>
+          <div class="compare-others">Coaching sessions</div>
+          <div class="compare-prime">Complete career transformation + bespoke materials created just for you</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        PRICING TIERS
        ============================================================ -->
   <section id="pricing">
@@ -1519,54 +1651,75 @@
       </div>
 
       <div class="pricing-grid">
+
         <!-- Free -->
         <div class="pricing-card fade-in delay-1">
           <div class="pricing-subtitle">Start here</div>
-          <div class="pricing-title">Career Proof Community</div>
+          <div class="pricing-title">Master Your Career Path Community</div>
           <div class="pricing-price">Free</div>
           <div class="pricing-divider"></div>
           <ul class="pricing-features">
+            <li class="pricing-feature">Genuinely useful frameworks (not vague tips)</li>
+            <li class="pricing-feature">Monthly free career workshop</li>
             <li class="pricing-feature">Access to the MYCP Skool community</li>
-            <li class="pricing-feature">Career tips and resources</li>
             <li class="pricing-feature">Connect with peers on the same journey</li>
-            <li class="pricing-feature">Monthly group Q&amp;A</li>
           </ul>
           <a href="https://www.skool.com" class="btn btn--navy-outline" target="_blank" rel="noopener">Join Free</a>
         </div>
 
         <!-- Membership — featured -->
         <div class="pricing-card pricing-card--featured fade-in delay-2">
-          <span class="pricing-badge">Most Popular</span>
+          <span class="pricing-badge">Core PRIME Programme</span>
           <div class="pricing-subtitle">Accelerate</div>
           <div class="pricing-title">Career Proof Membership</div>
           <div class="pricing-price">&pound;47 <sub>/ month</sub></div>
           <div class="pricing-divider"></div>
           <ul class="pricing-features">
-            <li class="pricing-feature">Everything in Free</li>
-            <li class="pricing-feature">Twice-monthly live coaching calls</li>
             <li class="pricing-feature">Full PRIME content library</li>
-            <li class="pricing-feature">AI-Proof Your Skills bonus module</li>
+            <li class="pricing-feature">Templates, tools &amp; AI-enhanced resources</li>
+            <li class="pricing-feature">Twice-monthly live coaching calls</li>
             <li class="pricing-feature">Community accountability groups</li>
+            <li class="pricing-feature">Everything in the Free tier</li>
           </ul>
           <a href="#enrol" class="btn btn--gold">Join Now</a>
         </div>
 
-        <!-- PRIME -->
+        <!-- Cohort -->
         <div class="pricing-card fade-in delay-3">
+          <span class="pricing-badge pricing-badge--navy">Quarterly Cohort</span>
+          <div class="pricing-subtitle">Grow together</div>
+          <div class="pricing-title">PRIME Cohort</div>
+          <div class="pricing-price">Enquire</div>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li class="pricing-feature">4 intakes per year (quarterly)</li>
+            <li class="pricing-feature">Group calls with personal feedback</li>
+            <li class="pricing-feature">Accountability partnerships</li>
+            <li class="pricing-feature">Done-with-you structured programme</li>
+            <li class="pricing-feature">Membership included</li>
+          </ul>
+          <a href="#contact" class="btn btn--navy">Apply to Join</a>
+        </div>
+
+        <!-- 1:1 -->
+        <div class="pricing-card fade-in delay-4">
+          <span class="pricing-badge pricing-badge--dark">Premium &middot; Max 4/yr</span>
           <div class="pricing-subtitle">Transform</div>
-          <div class="pricing-title">PRIME Programme</div>
+          <div class="pricing-title">PRIME 1:1</div>
           <div class="pricing-price">&pound;375 <sub>one-off</sub></div>
           <div class="pricing-divider"></div>
           <ul class="pricing-features">
-            <li class="pricing-feature">5 &times; 1-hour intensive 1:1 sessions</li>
+            <li class="pricing-feature">Complete career transformation</li>
+            <li class="pricing-feature">Bespoke materials created for you</li>
+            <li class="pricing-feature">5 &times; 1-hour intensive sessions</li>
             <li class="pricing-feature">1 &times; follow-up session</li>
             <li class="pricing-feature">WhatsApp &amp; email support</li>
-            <li class="pricing-feature">Personalised resources and materials</li>
             <li class="pricing-feature">Money-back guarantee after session 1</li>
           </ul>
-          <a href="#enrol" class="btn btn--navy">Enrol Now</a>
-          <p class="pricing-note">Also available as 1:1 coaching &mdash; <a href="#contact" style="color:var(--gold);text-decoration:underline;">apply below</a></p>
+          <a href="#contact" class="btn btn--navy">Apply Now</a>
+          <p class="pricing-note">Selective intake &mdash; 4 clients per year only</p>
         </div>
+
       </div>
     </div>
   </section>
