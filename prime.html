@@ -116,6 +116,8 @@
     .fade-in.delay-3 { transition-delay: 0.3s; }
     .fade-in.delay-4 { transition-delay: 0.4s; }
     .fade-in.delay-5 { transition-delay: 0.5s; }
+    .fade-in.delay-6 { transition-delay: 0.6s; }
+    .fade-in.delay-7 { transition-delay: 0.7s; }
 
     /* Buttons */
     .btn {
@@ -608,6 +610,93 @@
     }
     .quiz-retake:hover { opacity: 1; }
 
+    /* ============================================================
+       OVERDELIVERY PRINCIPLE
+       ============================================================ */
+    #overdelivery {
+      background: var(--navy);
+      padding: 96px 0;
+    }
+
+    .compare-table {
+      margin-top: 56px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .compare-header {
+      display: grid;
+      grid-template-columns: 180px 1fr 1fr;
+      gap: 24px;
+      padding: 14px 28px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .compare-header > div {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 1fr;
+      gap: 24px;
+      padding: 22px 28px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      align-items: center;
+      transition: background var(--transition);
+    }
+
+    .compare-row:hover { background: rgba(255,255,255,0.03); }
+
+    .compare-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 99px;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .compare-others {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .compare-others::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .compare-prime {
+      font-size: 0.875rem;
+      color: var(--white);
+      line-height: 1.5;
+      font-weight: 500;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .compare-prime::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 3px;
+      width: 14px;
+      height: 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23F5A623'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
 
     /* ============================================================
        PRICING TIERS
@@ -1021,6 +1110,313 @@
     }
 
     /* ============================================================
+       OPERATE SECTION
+       ============================================================ */
+    #operate {
+      background: var(--text-dark);
+      padding: 96px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle pattern overlay for depth */
+    #operate::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(245,166,35,0.06) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 20%, rgba(27,58,140,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .operate-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .operate-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+
+    .operate-eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .operate-headline {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .operate-headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .operate-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .operate-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,166,35,0.15);
+      border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 99px;
+      padding: 8px 16px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .operate-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* OPERATE acronym grid */
+    .operate-acronym {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+    }
+
+    .op-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 24px 16px;
+      text-align: center;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+      cursor: default;
+    }
+
+    .op-card:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(245,166,35,0.4);
+      transform: translateY(-4px);
+    }
+
+    .op-letter {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .op-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .op-body {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    /* O card is special — Onboarding (first) */
+    .op-card--onboard {
+      background: rgba(245,166,35,0.1);
+      border-color: rgba(245,166,35,0.25);
+    }
+
+    /* Waitlist box */
+    .operate-waitlist {
+      margin-top: 72px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .waitlist-copy h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .waitlist-copy p {
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .waitlist-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .waitlist-perk {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .waitlist-perk::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* Waitlist form */
+    .waitlist-form-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .waitlist-form-wrap label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .waitlist-input {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--white);
+      transition: border-color var(--transition), background var(--transition);
+      outline: none;
+    }
+
+    .waitlist-input::placeholder { color: rgba(255,255,255,0.3); }
+
+    .waitlist-input:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .waitlist-select {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--white);
+      transition: border-color var(--transition);
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .waitlist-select option { background: var(--text-dark); color: var(--white); }
+
+    .waitlist-select:focus { border-color: var(--gold); }
+
+    .waitlist-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      margin-top: 4px;
+    }
+
+    .waitlist-submit:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+    }
+
+    .waitlist-privacy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* Success state */
+    .waitlist-success {
+      display: none;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .waitlist-success.visible { display: block; }
+
+    .waitlist-success__icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .waitlist-success h4 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .waitlist-success p {
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
        FINAL CTA
        ============================================================ */
     #final-cta {
@@ -1084,32 +1480,19 @@
     }
     .footer-links a:hover { color: var(--gold); }
 
-    .footer-social {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
-
     .footer-social a {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
+      gap: 8px;
+      font-size: 0.875rem;
       color: rgba(255,255,255,0.65);
-      transition: background var(--transition), color var(--transition);
+      transition: color var(--transition);
     }
-    .footer-social a:hover {
-      background: var(--gold);
-      color: var(--white);
-    }
+    .footer-social a:hover { color: var(--gold); }
 
     .footer-social svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       fill: currentColor;
     }
 
@@ -1120,111 +1503,6 @@
       text-align: center;
       line-height: 1.6;
     }
-
-    /* ============================================================
-       NEWSLETTER & SOCIAL MEDIA
-       ============================================================ */
-    #newsletter-social {
-      background: var(--off-white);
-      padding: 80px 0;
-      text-align: center;
-    }
-
-    .newsletter-form {
-      display: flex;
-      gap: 12px;
-      max-width: 540px;
-      margin: 32px auto 0;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .newsletter-form input[type="email"] {
-      flex: 1;
-      min-width: 240px;
-      padding: 14px 20px;
-      border: 2px solid var(--light-grey);
-      border-radius: var(--radius);
-      font-family: var(--font-body);
-      font-size: 0.9375rem;
-      color: var(--text-dark);
-      background: var(--white);
-      outline: none;
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-
-    .newsletter-form input[type="email"]:focus {
-      border-color: var(--navy);
-      box-shadow: 0 0 0 3px rgba(27,58,140,0.1);
-    }
-
-    .newsletter-form input[type="email"]::placeholder {
-      color: rgba(74,74,106,0.45);
-    }
-
-    .newsletter-success {
-      display: none;
-      margin-top: 16px;
-      font-size: 0.9375rem;
-      color: #2a7d4f;
-      font-weight: 600;
-    }
-
-    .newsletter-divider {
-      width: 56px;
-      height: 3px;
-      background: var(--gold);
-      border-radius: 2px;
-      margin: 56px auto 0;
-    }
-
-    .social-channels {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-      margin-top: 40px;
-    }
-
-    .social-channel-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      padding: 20px 18px;
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      color: var(--text-mid);
-      font-size: 0.8125rem;
-      font-weight: 600;
-      min-width: 84px;
-      text-decoration: none;
-      border: 1px solid var(--light-grey);
-      transition: transform var(--transition), box-shadow var(--transition), color var(--transition), border-color var(--transition);
-    }
-
-    .social-channel-link:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-      border-color: transparent;
-    }
-
-    .social-channel-link svg {
-      width: 28px;
-      height: 28px;
-      fill: currentColor;
-    }
-
-    .social-channel-link.instagram:hover { color: #E1306C; }
-    .social-channel-link.x-twitter:hover { color: #000000; }
-    .social-channel-link.facebook:hover  { color: #1877F2; }
-    .social-channel-link.tiktok:hover    { color: #010101; }
-    .social-channel-link.linkedin:hover  { color: #0077B5; }
-    .social-channel-link.youtube:hover   { color: #FF0000; }
-    .social-channel-link.pinterest:hover { color: #E60023; }
-    .social-channel-link.telegram:hover  { color: #0088CC; }
-    .social-channel-link.whatsapp:hover  { color: #25D366; }
 
     /* ============================================================
        RESPONSIVE
@@ -1256,6 +1534,22 @@
       .steps-row::before { display: none; }
 
       .problem-grid { grid-template-columns: 1fr; gap: 20px; }
+
+      .operate-header {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 56px;
+      }
+
+      .operate-acronym {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .operate-waitlist {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 32px;
+      }
     }
 
     /* ---- Tablet only (not mobile) ---- */
@@ -1310,13 +1604,6 @@
       .final-cta-btns { flex-direction: column; align-items: center; }
       .final-cta-btns .btn { width: 100%; max-width: 360px; }
 
-      .newsletter-form { flex-direction: column; align-items: stretch; }
-      .newsletter-form input[type="email"],
-      .newsletter-form .btn { width: 100%; }
-
-      .social-channels { gap: 12px; }
-      .social-channel-link { min-width: 72px; padding: 16px 12px; }
-
       .footer-top { flex-direction: column; gap: 24px; }
 
       .about-layout { grid-template-columns: 1fr; gap: 36px; }
@@ -1326,6 +1613,12 @@
       /* Ensure buttons are touch-friendly */
       .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
       .faq-question { min-height: 52px; }
+
+      /* OPERATE mobile */
+      .operate-header { grid-template-columns: 1fr; gap: 32px; margin-bottom: 48px; }
+      .operate-acronym { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .operate-waitlist { grid-template-columns: 1fr; gap: 36px; padding: 32px 24px; }
+      .waitlist-copy h3 { font-size: 1.3rem; }
     }
 
     /* ---- Small mobile: ≤480px ---- */
@@ -1351,6 +1644,8 @@
       .nav-inner { height: 60px; }
 
       .footer-top { gap: 20px; }
+
+      .operate-acronym { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -1370,6 +1665,7 @@
         <ul class="nav-links" role="list">
           <li><a href="#about">About</a></li>
           <li><a href="#what-is-prime">PRIME</a></li>
+          <li><a href="#operate">OPERATE</a></li>
           <li><a href="#pricing">Community</a></li>
           <li><a href="#faq">Contact</a></li>
         </ul>
@@ -1383,6 +1679,7 @@
     <div class="nav-mobile" id="nav-mobile" role="list">
       <a href="#about" role="listitem">About</a>
       <a href="#what-is-prime" role="listitem">PRIME</a>
+      <a href="#operate" role="listitem">OPERATE</a>
       <a href="#pricing" role="listitem">Community</a>
       <a href="#faq" role="listitem">Contact</a>
     </div>
@@ -1428,11 +1725,11 @@
 
         <h1 class="hero-headline">
           AI just changed the<br/>rules of hiring.<br/>
-          Here's how you win anyway.
+          Here&rsquo;s how you win anyway.
         </h1>
 
         <p class="hero-sub">
-          PRIME is a proven 6-session career accelerator that gives you the tools, mindset and strategy to stand out — in a job market that no longer plays by the old rules.
+          PRIME is a proven 6-session career accelerator that gives you the tools, mindset and strategy to stand out &mdash; in a job market that no longer plays by the old rules.
         </p>
 
         <div class="hero-ctas">
@@ -1473,7 +1770,7 @@
         <div class="problem-card fade-in delay-1">
           <div class="problem-card__icon">🤖</div>
           <div class="problem-card__title">AI is replacing junior roles</div>
-          <p class="problem-card__text">The tasks once done by entry-level hires — research, data entry, drafting, scheduling — are now automated. The bar to getting hired has risen.</p>
+          <p class="problem-card__text">The tasks once done by entry-level hires &mdash; research, data entry, drafting, scheduling &mdash; are now automated. The bar to getting hired has risen.</p>
         </div>
         <div class="problem-card fade-in delay-2">
           <div class="problem-card__icon">📉</div>
@@ -1513,7 +1810,7 @@
         <div class="prime-card fade-in delay-2">
           <div class="prime-letter">R</div>
           <div class="prime-title">Research</div>
-          <p class="prime-body">Master job search techniques, build your network, and use LinkedIn like a professional — not a student.</p>
+          <p class="prime-body">Master job search techniques, build your network, and use LinkedIn like a professional &mdash; not a student.</p>
         </div>
         <div class="prime-card fade-in delay-3">
           <div class="prime-letter">I</div>
@@ -1528,7 +1825,7 @@
         <div class="prime-card fade-in delay-5">
           <div class="prime-letter">E</div>
           <div class="prime-title">Engage</div>
-          <p class="prime-body">Create your own onboarding strategy, hit the ground running, and build a career — not just a job.</p>
+          <p class="prime-body">Create your own onboarding strategy, hit the ground running, and build a career &mdash; not just a job.</p>
         </div>
       </div>
     </div>
@@ -1626,11 +1923,52 @@
         <!-- Result -->
         <div class="quiz-result" id="quiz-result" role="region" aria-label="Your personalised module recommendation">
           <div class="quiz-result__label">Your Starting Point</div>
-          <div class="quiz-result__module" id="result-module">Module P — Profile</div>
-          <p class="quiz-result__desc" id="result-desc">Your first session should focus on Profile Preparation &amp; Positioning — defining your strengths, building your CV, and crafting a compelling professional story.</p>
+          <div class="quiz-result__module" id="result-module">Module P &mdash; Profile</div>
+          <p class="quiz-result__desc" id="result-desc">Your first session should focus on Profile Preparation &amp; Positioning &mdash; defining your strengths, building your CV, and crafting a compelling professional story.</p>
           <a href="#enrol" class="btn btn--navy">Start Here &mdash; Enrol in PRIME</a>
           <br/>
           <button class="quiz-retake" id="quiz-retake" aria-label="Retake the quiz">Retake quiz</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OVERDELIVERY PRINCIPLE
+       ============================================================ -->
+  <section id="overdelivery">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <span class="eyebrow">The PRIME Philosophy</span>
+        <h2 class="section-heading section-heading--white">Most coaches hold back.<br/>Didi doesn&rsquo;t.</h2>
+        <p class="section-sub section-sub--white" style="margin:0 auto;">The Overdelivery Principle: give so much value at every level that people think &ldquo;if this is free, what&rsquo;s the paid stuff like?&rdquo;</p>
+      </div>
+
+      <div class="compare-table fade-in delay-1">
+        <div class="compare-header">
+          <div>Level</div>
+          <div>What others do</div>
+          <div>What PRIME does</div>
+        </div>
+        <div class="compare-row">
+          <div><span class="compare-tag">Free</span></div>
+          <div class="compare-others">Vague tips and teasers</div>
+          <div class="compare-prime">Genuinely useful frameworks you can act on today</div>
+        </div>
+        <div class="compare-row">
+          <div><span class="compare-tag">Membership</span></div>
+          <div class="compare-others">Basic course + community</div>
+          <div class="compare-prime">Full course + templates + tools + live calls + AI-enhanced resources</div>
+        </div>
+        <div class="compare-row">
+          <div><span class="compare-tag">Cohort</span></div>
+          <div class="compare-others">Group calls</div>
+          <div class="compare-prime">Group calls + personal feedback + accountability + done-with-you work</div>
+        </div>
+        <div class="compare-row">
+          <div><span class="compare-tag">1:1</span></div>
+          <div class="compare-others">Coaching sessions</div>
+          <div class="compare-prime">Complete career transformation + bespoke materials created just for you</div>
         </div>
       </div>
     </div>
@@ -1644,7 +1982,7 @@
       <div class="text-centre fade-in">
         <span class="eyebrow">Choose Your Path</span>
         <h2 class="section-heading">Choose how you want to grow</h2>
-        <p class="section-sub" style="margin:0 auto;">From free community access to fully personalised 1:1 coaching — there&rsquo;s a path that fits where you are right now.</p>
+        <p class="section-sub" style="margin:0 auto;">From free community access to fully personalised 1:1 coaching &mdash; there&rsquo;s a path that fits where you are right now.</p>
       </div>
 
       <div class="pricing-grid">
@@ -1686,7 +2024,7 @@
           <span class="pricing-badge pricing-badge--navy">Quarterly Cohort</span>
           <div class="pricing-subtitle">Grow together</div>
           <div class="pricing-title">PRIME Cohort</div>
-          <div class="pricing-price">&pound;375 <sub>one-off</sub></div>
+          <div class="pricing-price">&pound;375</div>
           <div class="pricing-divider"></div>
           <ul class="pricing-features">
             <li class="pricing-feature">4 intakes per year (quarterly)</li>
@@ -1764,7 +2102,7 @@
               <span class="credential-icon">🏛️</span>
               <div class="credential-text">
                 <strong>Clients Include</strong>
-                <span>BP · BBC · Met Police · MoJ · Houses of Parliament</span>
+                <span>BP &middot; BBC &middot; Met Police &middot; MoJ &middot; Houses of Parliament</span>
               </div>
             </div>
           </div>
@@ -1774,7 +2112,7 @@
         <div class="about-accent fade-in delay-2">
           <div class="about-initial">D</div>
           <blockquote class="about-tagline">
-            &ldquo;Every module is something I wish I&rsquo;d had at the start. PRIME is built from two decades of lessons I learned the hard way — so you don&rsquo;t have to.&rdquo;
+            &ldquo;Every module is something I wish I&rsquo;d had at the start. PRIME is built from two decades of lessons I learned the hard way &mdash; so you don&rsquo;t have to.&rdquo;
           </blockquote>
           <a href="https://calendly.com" class="btn btn--gold" target="_blank" rel="noopener">Book a Free Consultation</a>
         </div>
@@ -1805,7 +2143,7 @@
         </div>
         <div class="testimonial-card fade-in delay-3">
           <div class="testimonial-quote-mark">&ldquo;</div>
-          <p class="testimonial-text">Didi has been an indispensable figure in my career progression — not only as a mentor but as a constant source of inspiration. Her influence has been pivotal in shaping my professional journey.</p>
+          <p class="testimonial-text">Didi has been an indispensable figure in my career progression &mdash; not only as a mentor but as a constant source of inspiration. Her influence has been pivotal in shaping my professional journey.</p>
           <div class="testimonial-name">Tulsi Patel</div>
         </div>
       </div>
@@ -1848,6 +2186,143 @@
   </section>
 
   <!-- ============================================================
+       OPERATE — CONTRACTOR PROGRAMME
+       ============================================================ -->
+  <section id="operate">
+    <div class="container">
+      <div class="operate-inner">
+
+        <!-- Header: copy + badge -->
+        <div class="operate-header">
+          <div class="fade-in">
+            <span class="operate-eyebrow">A Master Your Career Path Programme</span>
+            <h2 class="operate-headline">
+              You landed the role.<br/>
+              Now <em>master it.</em>
+            </h2>
+            <p class="operate-sub">
+              OPERATE is a structured approach to managing and mastering your career path &mdash; whether you&rsquo;re a contractor or in permanent employment. It gives you a weekly system to onboard fast, deliver consistently, manage risk, and build a reputation that opens the next door before the current one closes.
+            </p>
+            <p class="operate-sub" style="margin-bottom: 28px;">
+              Built from 20+ years of navigating the public and private sector. This is what high performers actually do &mdash; systemised.
+            </p>
+            <span class="operate-badge">Coming soon &mdash; join the waitlist below</span>
+          </div>
+
+          <div class="fade-in delay-2">
+            <div style="background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.2); border-radius: var(--radius-lg); padding: 36px 32px;">
+              <div style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px;">Who OPERATE is for</div>
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                  <span style="color: var(--gold); font-size: 1rem; margin-top: 1px; flex-shrink:0;">→</span>
+                  <span style="font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.5;">Contractors navigating a new or ongoing engagement</span>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                  <span style="color: var(--gold); font-size: 1rem; margin-top: 1px; flex-shrink:0;">→</span>
+                  <span style="font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.5;">Employees who want a structured system for delivering and progressing</span>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                  <span style="color: var(--gold); font-size: 1rem; margin-top: 1px; flex-shrink:0;">→</span>
+                  <span style="font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.5;">Anyone great at the work but wanting to manage their career more strategically</span>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                  <span style="color: var(--gold); font-size: 1rem; margin-top: 1px; flex-shrink:0;">→</span>
+                  <span style="font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.5;">Professionals in procurement, commercial, IT and professional services</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OPERATE acronym breakdown -->
+        <div class="operate-acronym">
+          <div class="op-card op-card--onboard fade-in delay-1">
+            <div class="op-letter">O</div>
+            <div class="op-title">Onboarding</div>
+            <p class="op-body">Hit the ground running from day one with a structured start plan</p>
+          </div>
+          <div class="op-card fade-in delay-2">
+            <div class="op-letter">P</div>
+            <div class="op-title">Plan</div>
+            <p class="op-body">Set your weekly priorities and block out what actually matters</p>
+          </div>
+          <div class="op-card fade-in delay-3">
+            <div class="op-letter">E</div>
+            <div class="op-title">Execute</div>
+            <p class="op-body">Protect your deep work time and deliver without distraction</p>
+          </div>
+          <div class="op-card fade-in delay-4">
+            <div class="op-letter">R</div>
+            <div class="op-title">Report</div>
+            <p class="op-body">Proactive client communication that builds trust before problems arise</p>
+          </div>
+          <div class="op-card fade-in delay-5">
+            <div class="op-letter">A</div>
+            <div class="op-title">Assess</div>
+            <p class="op-body">Private risk and status reviews so you&rsquo;re never caught off guard</p>
+          </div>
+          <div class="op-card fade-in delay-6">
+            <div class="op-letter">T</div>
+            <div class="op-title">Triage</div>
+            <p class="op-body">Spot quick wins and improvements that enhance your profile with the client</p>
+          </div>
+          <div class="op-card fade-in delay-7">
+            <div class="op-letter">E</div>
+            <div class="op-title">Elevate</div>
+            <p class="op-body">Strategic opportunities &mdash; extensions, new contacts, your next move</p>
+          </div>
+        </div>
+
+        <!-- Waitlist section -->
+        <div class="operate-waitlist fade-in">
+          <div class="waitlist-copy">
+            <h3>Be first to know when OPERATE launches</h3>
+            <p>Join the waitlist and get early access, founding member pricing, and a free copy of the OPERATE Weekly Tracker when it launches.</p>
+            <div class="waitlist-perks">
+              <div class="waitlist-perk">Early access before public launch</div>
+              <div class="waitlist-perk">Founding member pricing (locked in for life)</div>
+              <div class="waitlist-perk">Free OPERATE Weekly Tracker on launch day</div>
+              <div class="waitlist-perk">Input into the programme before it&rsquo;s finalised</div>
+            </div>
+          </div>
+
+          <!-- Waitlist form -->
+          <div id="waitlist-form-wrap" class="waitlist-form-wrap">
+            <div>
+              <label for="wl-name">Your name</label>
+              <input type="text" id="wl-name" class="waitlist-input" placeholder="e.g. Sarah Ahmed" autocomplete="given-name" />
+            </div>
+            <div>
+              <label for="wl-email">Email address</label>
+              <input type="email" id="wl-email" class="waitlist-input" placeholder="you@email.com" autocomplete="email" />
+            </div>
+            <div>
+              <label for="wl-stage">Where are you now?</label>
+              <select id="wl-stage" class="waitlist-select">
+                <option value="" disabled selected>Select an option</option>
+                <option value="contractor-new">New contractor (first or second engagement)</option>
+                <option value="contractor-exp">Experienced contractor (3+ years)</option>
+                <option value="employee">Permanently employed and want to level up</option>
+                <option value="considering">Considering going contracting</option>
+              </select>
+            </div>
+            <button class="waitlist-submit" id="wl-submit" type="button">Join the OPERATE Waitlist</button>
+            <p class="waitlist-privacy">No spam. Just an email when OPERATE is ready.</p>
+          </div>
+
+          <!-- Success state -->
+          <div id="waitlist-success" class="waitlist-success">
+            <div class="waitlist-success__icon">🎉</div>
+            <h4>You&rsquo;re on the list!</h4>
+            <p>We&rsquo;ll be in touch as soon as OPERATE is ready to launch. Keep an eye on your inbox.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        FAQ
        ============================================================ -->
   <section id="faq">
@@ -1866,7 +2341,7 @@
             </span>
           </button>
           <div class="faq-answer">
-            Anyone early in their career — recent graduates, those changing direction, or professionals wanting to level up. All sectors welcome.
+            Anyone early in their career &mdash; recent graduates, those changing direction, or professionals wanting to level up. All sectors welcome.
           </div>
         </li>
         <li class="faq-item" role="listitem">
@@ -1877,7 +2352,7 @@
             </span>
           </button>
           <div class="faq-answer">
-            All sessions are online via video call. Flexible scheduling around your commitments — whether you&rsquo;re working, studying, or somewhere in between.
+            All sessions are online via video call. Flexible scheduling around your commitments &mdash; whether you&rsquo;re working, studying, or somewhere in between.
           </div>
         </li>
         <li class="faq-item" role="listitem">
@@ -1888,7 +2363,7 @@
             </span>
           </button>
           <div class="faq-answer">
-            The &pound;47/month membership gives you group coaching, content, and community. The PRIME 1:1 is fully personalised coaching with Didi — a completely bespoke experience tailored entirely to you. Places are limited so enquire to apply.
+            The &pound;47/month membership gives you group coaching, content, and community. The &pound;375 PRIME programme is personalised 1:1 coaching with Didi &mdash; a completely bespoke experience tailored entirely to you.
           </div>
         </li>
         <li class="faq-item" role="listitem">
@@ -1921,7 +2396,18 @@
             </span>
           </button>
           <div class="faq-answer">
-            Absolutely. Many members start free and upgrade when they&rsquo;re ready. There&rsquo;s no pressure and no time limit — you move at your own pace.
+            Absolutely. Many members start free and upgrade when they&rsquo;re ready. There&rsquo;s no pressure and no time limit &mdash; you move at your own pace.
+          </div>
+        </li>
+        <li class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            What is OPERATE and how is it different from PRIME?
+            <span class="faq-chevron" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            PRIME helps you land your role. OPERATE helps you master it once you&rsquo;re in. It&rsquo;s a structured weekly system for contractors and employees alike &mdash; covering onboarding, delivery, client communication, risk management, and building a reputation that opens doors. Join the waitlist to be first to hear when it launches.
           </div>
         </li>
       </ul>
@@ -1940,112 +2426,8 @@
         <div class="final-cta-btns">
           <a href="https://www.skool.com" class="btn btn--navy" target="_blank" rel="noopener">Join Free</a>
           <a href="#enrol" class="btn btn--white">Enrol in PRIME &mdash; &pound;375</a>
+          <a href="#operate" class="btn btn--navy-outline">Join OPERATE Waitlist</a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       NEWSLETTER & SOCIAL MEDIA
-       ============================================================ -->
-  <section id="newsletter-social">
-    <div class="container">
-
-      <!-- Newsletter -->
-      <div class="text-centre fade-in">
-        <span class="eyebrow">Stay in the Loop</span>
-        <h2 class="section-heading">Get career tips straight to your inbox</h2>
-        <p class="section-sub">Weekly insights on career strategy, job search, personal branding and growth &mdash; no spam, ever.</p>
-        <form class="newsletter-form" id="newsletter-form" novalidate>
-          <input type="email" id="newsletter-email" placeholder="Enter your email address" required aria-label="Email address" />
-          <button type="submit" class="btn btn--gold">Subscribe</button>
-        </form>
-        <p class="newsletter-success" id="newsletter-success">&#10003;&nbsp; You&rsquo;re subscribed! Check your inbox for a welcome email.</p>
-      </div>
-
-      <div class="newsletter-divider fade-in"></div>
-
-      <!-- Social Channels -->
-      <div class="text-centre fade-in" style="margin-top:48px;">
-        <span class="eyebrow">Follow Us</span>
-        <h2 class="section-heading" style="font-size:clamp(1.4rem,3vw,1.9rem);">Find us on social media</h2>
-        <p class="section-sub">Join the community across all our channels.</p>
-      </div>
-
-      <div class="social-channels fade-in">
-
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/masteryourcareerpath/" class="social-channel-link instagram" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-          </svg>
-          Instagram
-        </a>
-
-        <!-- X (Twitter) -->
-        <a href="https://x.com/masterycp" class="social-channel-link x-twitter" target="_blank" rel="noopener" aria-label="X (Twitter)">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-          X
-        </a>
-
-        <!-- Facebook -->
-        <a href="https://www.facebook.com/profile.php?id=61567475866297" class="social-channel-link facebook" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-          </svg>
-          Facebook
-        </a>
-
-        <!-- TikTok -->
-        <a href="https://www.tiktok.com/@masterycp" class="social-channel-link tiktok" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-          </svg>
-          TikTok
-        </a>
-
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/company/master-your-career-path/" class="social-channel-link linkedin" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-          LinkedIn
-        </a>
-
-        <!-- YouTube -->
-        <a href="https://www.youtube.com/@MasterYourCareerPath-y6t" class="social-channel-link youtube" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-          </svg>
-          YouTube
-        </a>
-
-        <!-- Pinterest -->
-        <a href="https://pin.it/1RDH8Yo15" class="social-channel-link pinterest" target="_blank" rel="noopener" aria-label="Pinterest">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
-          </svg>
-          Pinterest
-        </a>
-
-        <!-- Telegram -->
-        <a href="https://t.me/+QFYa3DL4aDwyNmJk" class="social-channel-link telegram" target="_blank" rel="noopener" aria-label="Telegram">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-          </svg>
-          Telegram
-        </a>
-
-        <!-- WhatsApp -->
-        <a href="https://whatsapp.com/channel/0029VauYGNULtOj7vtarkT1E" class="social-channel-link whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-          WhatsApp
-        </a>
-
       </div>
     </div>
   </section>
@@ -2061,38 +2443,24 @@
         <nav class="footer-links" aria-label="Footer navigation">
           <a href="#about">About</a>
           <a href="#what-is-prime">PRIME</a>
+          <a href="#operate">OPERATE</a>
           <a href="#pricing">Community</a>
           <a href="#faq">Privacy Policy</a>
         </nav>
 
         <div class="footer-social">
-          <a href="https://www.instagram.com/masteryourcareerpath/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          </a>
-          <a href="https://x.com/masterycp" target="_blank" rel="noopener" aria-label="X (Twitter)">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-          <a href="https://www.facebook.com/profile.php?id=61567475866297" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          </a>
-          <a href="https://www.linkedin.com/company/master-your-career-path/" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          </a>
-          <a href="https://www.youtube.com/@MasterYourCareerPath-y6t" target="_blank" rel="noopener" aria-label="YouTube">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          </a>
-          <a href="https://t.me/+QFYa3DL4aDwyNmJk" target="_blank" rel="noopener" aria-label="Telegram">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          </a>
-          <a href="https://whatsapp.com/channel/0029VauYGNULtOj7vtarkT1E" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <a href="https://www.linkedin.com/in/damaka" target="_blank" rel="noopener" aria-label="Didi on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
           </a>
         </div>
       </div>
 
       <div class="footer-bottom">
         <p>&copy; 2026 Master Your Career Path. All rights reserved.</p>
-        <p>PRIME is a Master Your Career Path programme. &nbsp;|&nbsp; <a href="mailto:didi@masteryourcareerpath.com" style="color:inherit;">didi@masteryourcareerpath.com</a></p>
+        <p>PRIME &amp; OPERATE are Master Your Career Path programmes. &nbsp;|&nbsp; <a href="mailto:didi@masteryourcareerpath.com" style="color:inherit;">didi@masteryourcareerpath.com</a></p>
       </div>
     </div>
   </footer>
@@ -2174,25 +2542,6 @@
 
       document.querySelectorAll('.fade-in').forEach(function (el) {
         observer.observe(el);
-      });
-    }());
-
-    /* ---- Newsletter form ---- */
-    (function () {
-      var form = document.getElementById('newsletter-form');
-      var success = document.getElementById('newsletter-success');
-      if (!form) return;
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var email = document.getElementById('newsletter-email').value.trim();
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          document.getElementById('newsletter-email').focus();
-          return;
-        }
-        /* Replace the action below with your email service endpoint (e.g. Mailchimp, ConvertKit) */
-        form.style.display = 'none';
-        success.style.display = 'block';
       });
     }());
 
@@ -2314,7 +2663,6 @@
 
       items.forEach(function (item) {
         var btn    = item.querySelector('.faq-question');
-        var answer = item.querySelector('.faq-answer');
 
         btn.addEventListener('click', function () {
           var isOpen = item.classList.contains('open');
@@ -2331,6 +2679,42 @@
             btn.setAttribute('aria-expanded', 'true');
           }
         });
+      });
+    }());
+
+    /* ---- OPERATE Waitlist form ---- */
+    (function () {
+      var submitBtn = document.getElementById('wl-submit');
+      var formWrap  = document.getElementById('waitlist-form-wrap');
+      var successEl = document.getElementById('waitlist-success');
+
+      if (!submitBtn) return;
+
+      submitBtn.addEventListener('click', function () {
+        var name  = document.getElementById('wl-name').value.trim();
+        var email = document.getElementById('wl-email').value.trim();
+        var stage = document.getElementById('wl-stage').value;
+
+        // Basic validation
+        if (!name) {
+          document.getElementById('wl-name').focus();
+          return;
+        }
+        if (!email || !email.includes('@')) {
+          document.getElementById('wl-email').focus();
+          return;
+        }
+        if (!stage) {
+          document.getElementById('wl-stage').focus();
+          return;
+        }
+
+        // Log to console (replace with your form endpoint / Mailchimp / ConvertKit etc.)
+        console.log('OPERATE waitlist submission:', { name: name, email: email, stage: stage });
+
+        // Show success
+        formWrap.style.display = 'none';
+        successEl.classList.add('visible');
       });
     }());
   </script>
