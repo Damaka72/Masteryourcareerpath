@@ -1745,6 +1745,109 @@
       cursor: pointer;
     }
     .waitlist-consent a { color: var(--gold); text-decoration: underline; }
+
+    /* CV-TO-WEBSITE SECTION */
+    #cv-to-website {
+      background: var(--off-white);
+      border-top: 1px solid var(--light-grey);
+      border-bottom: 1px solid var(--light-grey);
+    }
+    .cvw-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .cvw-layout { grid-template-columns: 1fr; gap: 40px; }
+    }
+    .cvw-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .cvw-feature {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 0.9375rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+    .cvw-feature::before {
+      content: "→";
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .cvw-card {
+      background: var(--white);
+      border: 1px solid var(--light-grey);
+      border-radius: var(--radius-lg);
+      padding: 40px 36px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+    .cvw-card__eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .cvw-card__price {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .cvw-card__price-note {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      margin-bottom: 28px;
+    }
+    .cvw-card__divider {
+      height: 1px;
+      background: var(--light-grey);
+      margin: 20px 0;
+    }
+    .cvw-card__perks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+    .cvw-card__perk {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .cvw-card__perk::before {
+      content: "✓";
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .cvw-coming-soon {
+      display: inline-block;
+      background: rgba(245,166,35,0.12);
+      color: var(--gold-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 
@@ -1775,6 +1878,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#what-is-prime">PRIME</a></li>
           <li><a href="#operate">OPERATE</a></li>
+          <li><a href="#cv-to-website">CV-to-Website</a></li>
           <li><a href="#pricing">Community</a></li>
           <li><a href="#faq">Contact</a></li>
         </ul>
@@ -1789,6 +1893,7 @@
       <a href="#about" role="listitem">About</a>
       <a href="#what-is-prime" role="listitem">PRIME</a>
       <a href="#operate" role="listitem">OPERATE</a>
+      <a href="#cv-to-website" role="listitem">CV-to-Website</a>
       <a href="#pricing" role="listitem">Community</a>
       <a href="#faq" role="listitem">Contact</a>
     </div>
@@ -1842,7 +1947,7 @@
         </p>
 
         <div class="hero-ctas">
-          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold">Enrol in PRIME &mdash; &pound;375</a>
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold">Join PRIME &mdash; from &pound;47/mo</a>
           <a href="https://www.skool.com/master-your-career-path-3263/about" class="btn btn--navy-outline" target="_blank" rel="noopener">Join Free Community</a>
         </div>
 
@@ -2382,6 +2487,55 @@
   </section>
 
   <!-- ============================================================
+       CV-TO-WEBSITE
+       ============================================================ -->
+  <section id="cv-to-website" class="section-pad">
+    <div class="container">
+      <div class="cvw-layout">
+
+        <!-- Copy column -->
+        <div class="fade-in">
+          <span class="eyebrow">A Master Your Career Path Programme</span>
+          <h2 class="section-heading section-heading--dark">Your CV is a document.<br/>Your website is a <em>brand.</em></h2>
+          <p class="section-sub">Most professionals are invisible online. CV-to-Website turns your career story into a personal site that works for you 24/7 &mdash; attracting recruiters, clients, and opportunities even when you&rsquo;re not actively looking.</p>
+
+          <div class="cvw-features">
+            <div class="cvw-feature">No coding required &mdash; built for professionals, not developers</div>
+            <div class="cvw-feature">Done-with-you: step-by-step guidance from blank page to live site</div>
+            <div class="cvw-feature">AI-assisted copy so you don&rsquo;t stare at a blank screen</div>
+            <div class="cvw-feature">Optimised to be found by recruiters and hiring managers</div>
+            <div class="cvw-feature">Stand out in procurement, commercial, and professional services</div>
+          </div>
+
+          <!-- Placeholder — update href to the Skool course page once live -->
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold">Get CV-to-Website &mdash; &pound;197</a>
+        </div>
+
+        <!-- Price card -->
+        <div class="fade-in delay-2">
+          <div class="cvw-card">
+            <span class="cvw-coming-soon">Coming soon to Skool</span>
+            <div class="cvw-card__eyebrow">CV-to-Website Course</div>
+            <div class="cvw-card__price">&pound;197</div>
+            <div class="cvw-card__price-note">One-time payment &mdash; lifetime access</div>
+            <div class="cvw-card__divider"></div>
+            <div class="cvw-card__perks">
+              <div class="cvw-card__perk">Full step-by-step video course</div>
+              <div class="cvw-card__perk">Personal brand strategy module</div>
+              <div class="cvw-card__perk">AI copy prompts &amp; templates</div>
+              <div class="cvw-card__perk">SEO basics for professionals</div>
+              <div class="cvw-card__perk">Community access included</div>
+            </div>
+            <!-- Placeholder — update href to the Skool course page once live -->
+            <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--navy" style="width:100%;">Enrol on Skool</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        FAQ
        ============================================================ -->
   <section id="faq">
@@ -2517,7 +2671,7 @@
         <p class="section-sub">Start today &mdash; free, or go all in with PRIME.</p>
         <div class="final-cta-btns">
           <a href="https://www.skool.com/master-your-career-path-3263/about" class="btn btn--navy" target="_blank" rel="noopener">Join Free</a>
-          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--white">Enrol in PRIME &mdash; &pound;375</a>
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--white">Join PRIME &mdash; from &pound;47/mo</a>
           <a href="#operate" class="btn btn--navy-outline">Join OPERATE Waitlist</a>
         </div>
       </div>
@@ -2536,6 +2690,7 @@
           <a href="#about">About</a>
           <a href="#what-is-prime">PRIME</a>
           <a href="#operate">OPERATE</a>
+          <a href="#cv-to-website">CV-to-Website</a>
           <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener">Community</a>
           <a href="/privacy.html">Privacy Policy</a>
           <a href="/terms.html">Terms &amp; Conditions</a>
