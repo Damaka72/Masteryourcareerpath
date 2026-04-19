@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Hub | Master Your Career Path™</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --ink:          #1A1A2E;
+  --navy:         #1B3A8C;
+  --navy-mid:     #2A5298;
+  --blue:         #3D6CC0;
+  --blue-pale:    #C8D9F5;
+  --blue-ghost:   #EBF0FB;
+  --accent:       #F5A623;
+  --accent-pale:  #FEF3DC;
+  --red:          #C0392B;
+  --red-pale:     #FDECEA;
+  --green:        #2F7A4E;
+  --green-pale:   #D4EDDF;
+  --cream:        #F7F9FF;
+  --white:        #FFFFFF;
+  --border:       #C8D9F5;
+  --muted:        #6B7B9F;
+  --sidebar-w:    240px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; line-height: 1.5; }
+
+/* ══ LOGIN ══ */
+#loginScreen { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: var(--navy); }
+.login-card { background: var(--white); border-radius: 20px; padding: 3rem 2.5rem; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.3); }
+.login-monogram { width: 64px; height: 64px; background: var(--navy); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: white; margin: 0 auto 1.25rem; }
+.login-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+.login-sub { color: var(--muted); font-size: 0.875rem; margin-bottom: 2rem; }
+.login-field { display: flex; flex-direction: column; gap: 0.4rem; text-align: left; margin-bottom: 1rem; }
+.login-field label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.login-field input { width: 100%; padding: 0.85rem 1rem; border: 2px solid var(--border); border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; color: var(--ink); background: var(--cream); transition: border-color 0.2s; outline: none; }
+.login-field input:focus { border-color: var(--blue); background: var(--white); }
+.login-btn { width: 100%; background: var(--navy); color: var(--white); border: none; border-radius: 10px; padding: 0.95rem; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 0.5rem; transition: background 0.2s; }
+.login-btn:hover { background: var(--navy-mid); }
+.login-error { display: none; color: var(--red); font-size: 0.875rem; margin-top: 0.75rem; background: var(--red-pale); border-radius: 8px; padding: 0.6rem 0.9rem; }
+.login-error.show { display: block; }
+
+/* ══ APP SHELL ══ */
+#hubApp { display: none; min-height: 100vh; }
+#hubApp.visible { display: flex; }
+
+/* ── Sidebar ── */
+.sidebar { width: var(--sidebar-w); height: 100vh; background: var(--navy); color: var(--white); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 100; overflow-y: auto; }
+.sidebar-brand { padding: 1.5rem 1.25rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 0.75rem; }
+.sidebar-brand-icon { width: 38px; height: 38px; background: rgba(255,255,255,0.12); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; flex-shrink: 0; }
+.sidebar-brand-name { font-size: 0.85rem; font-weight: 700; line-height: 1.2; }
+.sidebar-brand-sub { font-size: 0.65rem; opacity: 0.5; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; }
+.sidebar-section { padding: 1.25rem 0.75rem 0.5rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); }
+.sidebar-nav { padding: 0.25rem 0.75rem; display: flex; flex-direction: column; gap: 0.15rem; }
+.nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0.85rem; border-radius: 9px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: background 0.15s, color 0.15s; cursor: pointer; border: none; background: none; font-family: 'Plus Jakarta Sans', sans-serif; width: 100%; text-align: left; }
+.nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.1); color: var(--white); }
+.nav-item-icon { width: 20px; text-align: center; font-size: 1rem; flex-shrink: 0; }
+.nav-badge { margin-left: auto; background: var(--accent); color: #1A1A2E; font-size: 0.68rem; font-weight: 700; padding: 0.1rem 0.45rem; border-radius: 999px; min-width: 20px; text-align: center; }
+.nav-badge.red { background: var(--red); color: white; }
+.sidebar-footer { padding: 1rem 0.75rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto; }
+.sidebar-user { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.85rem; }
+.sidebar-avatar { width: 30px; height: 30px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
+.sidebar-username { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+.btn-logout { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.85rem; border-radius: 9px; color: rgba(255,255,255,0.45); font-size: 0.85rem; font-weight: 500; background: none; border: none; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: color 0.15s, background 0.15s; text-align: left; width: 100%; }
+.btn-logout:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+
+/* ── Main ── */
+.main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.topbar-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); }
+.topbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+.topbar-date { font-size: 0.825rem; color: var(--muted); }
+.content { padding: 2rem; max-width: 1100px; width: 100%; }
+
+/* ── Panels ── */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── Stats ── */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.stat-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.3rem; position: relative; overflow: hidden; }
+.stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--stat-color, var(--blue)); border-radius: 14px 14px 0 0; }
+.stat-card.accent { --stat-color: var(--accent); }
+.stat-card.red    { --stat-color: var(--red); }
+.stat-card.green  { --stat-color: var(--green); }
+.stat-icon { font-size: 1.4rem; margin-bottom: 0.25rem; }
+.stat-value { font-size: 2rem; font-weight: 700; color: var(--ink); line-height: 1; }
+.stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; }
+
+/* ── Section headers ── */
+.section-header { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; margin-bottom: 1rem; }
+.section-header-left { display: flex; align-items: baseline; gap: 0.5rem; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+.section-sub { font-size: 0.78rem; color: var(--muted); }
+
+/* ── Agent status grid ── */
+.agent-status-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; margin-bottom: 2rem; }
+.agent-status-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; cursor: pointer; transition: border-color 0.2s, transform 0.15s; }
+.agent-status-card:hover { border-color: var(--blue); transform: translateY(-1px); }
+.agent-status-card.status-ok      { border-top: 3px solid var(--green); }
+.agent-status-card.status-warning { border-top: 3px solid var(--accent); }
+.agent-status-card.status-error   { border-top: 3px solid var(--red); }
+.agent-status-card.status-never_run, .agent-status-card.status-empty { border-top: 3px solid #ccc; }
+.asc-icon  { font-size: 1.4rem; margin-bottom: 0.4rem; }
+.asc-name  { font-size: 0.78rem; font-weight: 700; color: var(--ink); }
+.asc-status { font-size: 0.7rem; margin-top: 0.2rem; }
+.asc-status.ok      { color: var(--green); }
+.asc-status.warning { color: var(--accent); }
+.asc-status.error   { color: var(--red); }
+.asc-status.never_run, .asc-status.empty { color: var(--muted); }
+.asc-meta { font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.4; }
+
+/* ── Agent panel chrome ── */
+.agent-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.agent-panel-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--navy); }
+.agent-panel-meta { font-size: 0.825rem; color: var(--muted); margin-top: 0.2rem; }
+.agent-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.1rem; border-radius: 9px; border: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+.agent-btn.primary   { background: var(--navy); color: white; }
+.agent-btn.primary:hover { background: var(--navy-mid); }
+.agent-btn.secondary { background: var(--blue-ghost); color: var(--navy); }
+.agent-btn.secondary:hover { background: var(--blue-pale); }
+.agent-btn.accent    { background: var(--accent-pale); color: #7a4d00; }
+
+/* ── Module tiles ── */
+.modules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.module-tile { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; text-decoration: none; color: var(--ink); transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s; position: relative; overflow: hidden; cursor: pointer; }
+.module-tile:hover { border-color: var(--tile-accent, var(--blue)); box-shadow: 0 8px 32px rgba(27,58,140,0.1); transform: translateY(-2px); }
+.tile-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--tile-bg, var(--blue-ghost)); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+.tile-label { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+.tile-desc { font-size: 0.825rem; color: var(--muted); line-height: 1.5; }
+.tile-badge { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 999px; background: var(--tile-badge-bg, var(--blue-ghost)); color: var(--tile-badge-color, var(--navy-mid)); width: fit-content; }
+
+/* ── Attention panel ── */
+.attention-panel { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 2rem; }
+.attention-header { background: var(--blue-ghost); padding: 1rem 1.5rem; display: flex; align-items: center; gap: 0.6rem; border-bottom: 1px solid var(--border); }
+.attention-header-title { font-weight: 600; font-size: 0.9rem; color: var(--navy); }
+.attention-list { list-style: none; }
+.attention-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
+.attention-item:last-child { border-bottom: none; }
+.attention-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.attention-dot.red   { background: var(--red); }
+.attention-dot.green { background: var(--green); }
+.attention-dot.blue  { background: var(--blue); }
+.attention-text { flex: 1; color: var(--ink); }
+.attention-action { font-size: 0.78rem; color: var(--blue); font-weight: 600; text-decoration: none; cursor: pointer; white-space: nowrap; border: none; background: none; font-family: 'Plus Jakarta Sans', sans-serif; }
+.attention-action:hover { text-decoration: underline; }
+.attention-empty { padding: 1.5rem; text-align: center; color: var(--muted); font-size: 0.875rem; }
+
+/* ── Content cards ── */
+.content-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+.content-card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+.content-card-score { min-width: 48px; height: 48px; background: var(--blue-ghost); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; color: var(--navy); flex-shrink: 0; flex-direction: column; line-height: 1.1; text-align: center; }
+.content-card-title { font-weight: 600; font-size: 0.925rem; color: var(--ink); line-height: 1.4; }
+.content-card-meta { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+.content-card-actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+
+/* ── Tag / pill ── */
+.opp-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+.opp-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
+.opp-title { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+.opp-org   { font-size: 0.8rem; color: var(--muted); margin-top: 0.15rem; }
+.opp-tag { font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 999px; }
+.opp-tag.sector { background: var(--blue-ghost); color: var(--navy-mid); }
+
+/* ── Vitals ── */
+.vitals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.vital-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; }
+.vital-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 0.5rem; }
+.vital-value { font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+.vital-sub   { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+/* ── Utilities ── */
+.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.toast { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; padding: 0.9rem 1.5rem; border-radius: 10px; font-weight: 600; font-size: 0.875rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); animation: slideUp 0.3s ease; }
+.toast.success { background: var(--navy); color: white; }
+.toast.error   { background: var(--red); color: white; }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.empty-state { text-align: center; padding: 3rem 1rem; color: var(--muted); }
+.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+.empty-state p { font-size: 0.875rem; }
+
+@media (max-width: 900px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { display: none; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .modules-grid, .vitals-grid { grid-template-columns: 1fr; }
+  .agent-status-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-monogram">MC</div>
+    <div class="login-title">Admin Hub</div>
+    <div class="login-sub">Master Your Career Path™ — Back Office</div>
+    <div class="login-field">
+      <label>Username</label>
+      <input type="text" id="usernameInput" placeholder="admin" autocomplete="username"
+             onkeypress="if(event.key==='Enter') document.getElementById('passwordInput').focus()">
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="passwordInput" placeholder="••••••••" autocomplete="current-password"
+             onkeypress="if(event.key==='Enter') hubLogin()">
+    </div>
+    <button class="login-btn" onclick="hubLogin()">Sign In</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ══ HUB APP ══ -->
+<div id="hubApp">
+
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">MC</div>
+      <div>
+        <div class="sidebar-brand-name">Master Your Career</div>
+        <div class="sidebar-brand-sub">Admin Hub</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">Overview</div>
+    <div class="sidebar-nav">
+      <button class="nav-item active" onclick="showPanel('overview', this)">
+        <span class="nav-item-icon">📊</span> Dashboard
+      </button>
+    </div>
+
+    <div class="sidebar-section">Content</div>
+    <div class="sidebar-nav">
+      <button class="nav-item" onclick="showPanel('curator', this)">
+        <span class="nav-item-icon">🎯</span> Curator
+        <span class="nav-badge" id="navBadgeCurator" style="display:none;"></span>
+      </button>
+      <button class="nav-item" onclick="showPanel('newsletter', this)">
+        <span class="nav-item-icon">📰</span> Newsletter
+        <span class="nav-badge" id="navBadgeNewsletter" style="display:none;"></span>
+      </button>
+      <button class="nav-item" onclick="showPanel('repurpose', this)">
+        <span class="nav-item-icon">♻️</span> Repurpose
+        <span class="nav-badge" id="navBadgeRepurpose" style="display:none;"></span>
+      </button>
+    </div>
+
+    <div class="sidebar-section">Products</div>
+    <div class="sidebar-nav">
+      <button class="nav-item" onclick="showPanel('product', this)">
+        <span class="nav-item-icon">🎓</span> Products
+        <span class="nav-badge" id="navBadgeProduct" style="display:none;"></span>
+      </button>
+      <button class="nav-item" onclick="showPanel('leadnurture', this)">
+        <span class="nav-item-icon">💌</span> Lead Nurture
+        <span class="nav-badge" id="navBadgeNurture" style="display:none;"></span>
+      </button>
+      <button class="nav-item" onclick="showPanel('enquiry', this)">
+        <span class="nav-item-icon">📨</span> Enquiries
+        <span class="nav-badge red" id="navBadgeEnquiry" style="display:none;"></span>
+      </button>
+    </div>
+
+    <div class="sidebar-section">Site</div>
+    <div class="sidebar-nav">
+      <button class="nav-item" onclick="showPanel('seo', this)">
+        <span class="nav-item-icon">🔎</span> SEO Gaps
+        <span class="nav-badge" id="navBadgeSeo" style="display:none;"></span>
+      </button>
+      <button class="nav-item" onclick="showPanel('health', this)">
+        <span class="nav-item-icon">🏥</span> Site Health
+        <span class="nav-badge red" id="navBadgeHealth" style="display:none;"></span>
+      </button>
+      <a class="nav-item" href="https://masteryourcareerpath.com" target="_blank">
+        <span class="nav-item-icon">🌐</span> View Site
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar" id="sidebarAvatar">A</div>
+        <div class="sidebar-username" id="sidebarUsername">admin</div>
+      </div>
+      <button class="btn-logout" onclick="logout()"><span>↩</span> Sign Out</button>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-actions">
+        <div class="topbar-date" id="topbarDate"></div>
+        <button class="agent-btn secondary" onclick="loadAgentData(true)">↺ Refresh</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ══ OVERVIEW ══ -->
+      <div class="panel active" id="panel-overview">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-value" id="statPicks"><span class="spinner"></span></div>
+            <div class="stat-label">Curated Articles Ready</div>
+          </div>
+          <div class="stat-card accent">
+            <div class="stat-icon">📰</div>
+            <div class="stat-value" id="statDrafts"><span class="spinner"></span></div>
+            <div class="stat-label">Newsletter Drafts</div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-icon">📨</div>
+            <div class="stat-value" id="statEnquiries"><span class="spinner"></span></div>
+            <div class="stat-label">Unread Enquiries</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon">🔎</div>
+            <div class="stat-value" id="statGaps"><span class="spinner"></span></div>
+            <div class="stat-label">SEO Gaps Found</div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <div class="section-header-left">
+            <div class="section-title">Agent Status</div>
+            <div class="section-sub">Click to view details</div>
+          </div>
+          <button class="agent-btn secondary" onclick="loadAgentData(true)">↺ Refresh</button>
+        </div>
+        <div class="agent-status-grid" id="agentStatusGrid">
+          <div class="agent-status-card"><div class="spinner"></div></div>
+        </div>
+
+        <div class="section-header">
+          <div class="section-header-left">
+            <div class="section-title">Needs Attention</div>
+            <div class="section-sub" id="attentionSub">Loading…</div>
+          </div>
+        </div>
+        <div class="attention-panel">
+          <div class="attention-header">
+            <span>🔔</span>
+            <span class="attention-header-title">Action Required</span>
+          </div>
+          <div class="attention-empty" id="attentionLoading"><span class="spinner"></span> Checking…</div>
+          <ul class="attention-list" id="attentionList" style="display:none;"></ul>
+        </div>
+
+        <div class="section-header">
+          <div class="section-header-left"><div class="section-title">Quick Actions</div></div>
+        </div>
+        <div class="modules-grid">
+          <button class="module-tile" onclick="showPanel('curator', null)" style="--tile-accent:#2F7A4E; --tile-bg:#D4EDDF;">
+            <div class="tile-icon">🎯</div>
+            <div class="tile-label">Content Curator</div>
+            <div class="tile-desc">Scan career development news, score articles /10 for LinkedIn and newsletter use.</div>
+            <div class="tile-badge" id="curatorTileBadge" style="--tile-badge-bg:#D4EDDF; --tile-badge-color:#2F7A4E;">Loading…</div>
+          </button>
+          <button class="module-tile" onclick="showPanel('newsletter', null)" style="--tile-accent:#F5A623; --tile-bg:#FEF3DC;">
+            <div class="tile-icon">📰</div>
+            <div class="tile-label">The Career Clarity Weekly</div>
+            <div class="tile-desc">Draft your weekly newsletter: insight + news + quick win + ask the coach + resource.</div>
+            <div class="tile-badge" id="newsletterTileBadge" style="--tile-badge-bg:#FEF3DC; --tile-badge-color:#7a4d00;">Loading…</div>
+          </button>
+          <button class="module-tile" onclick="showPanel('product', null)" style="--tile-accent:#1B3A8C; --tile-bg:#EBF0FB;">
+            <div class="tile-icon">🎓</div>
+            <div class="tile-label">Product Creator</div>
+            <div class="tile-desc">Build course outlines, workshop plans, lead magnets, and launch copy.</div>
+            <div class="tile-badge" id="productTileBadge" style="--tile-badge-bg:#EBF0FB; --tile-badge-color:#2A5298;">Loading…</div>
+          </button>
+          <button class="module-tile" onclick="showPanel('enquiry', null)" style="--tile-accent:#C0392B; --tile-bg:#FDECEA;">
+            <div class="tile-icon">📨</div>
+            <div class="tile-label">Enquiry Agent</div>
+            <div class="tile-desc">Categorise, prioritise, and draft responses to inbound enquiries.</div>
+            <div class="tile-badge" id="enquiryTileBadge" style="--tile-badge-bg:#FDECEA; --tile-badge-color:#C0392B;">Loading…</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ══ CURATOR PANEL ══ -->
+      <div class="panel" id="panel-curator">
+        <div class="agent-panel-header">
+          <div>
+            <div class="agent-panel-title">🎯 Content Curator</div>
+            <div class="agent-panel-meta" id="curatorMeta">Scores career development and coaching news articles for LinkedIn and newsletter use</div>
+          </div>
+        </div>
+        <div id="curatorContent"><div class="empty-state"><div class="spinner"></div><p>Loading…</p></div></div>
+      </div>
+
+      <!-- ══ NEWSLETTER PANEL ══ -->
+      <div class="panel" id="panel-newsletter">
+        <div class="agent-panel-header">
+          <div>
+            <div class="agent-panel-title">📰 Newsletter — The Career Clarity Weekly</div>
+            <div class="agent-panel-meta">Weekly draft: opening hook + career insight + news roundup + quick win + ask the coach + resource + CTA</div>
+          </div>
+        </div>
+        <div id="newsletterContent"><div class="empty-state"><div class="spinner"></div><p>Loading…</p></div></div>
+      </div>
+
+      <!-- ══ REPURPOSE PANEL ══ -->
+      <div class="panel" id="panel-repurpose">
+        <div class="agent-panel-header">
+          <div>
+            <div class="agent-panel-title">♻️ Content Repurposing</div>
+            <div class="agent-panel-meta">Turns articles, coaching insights, and tips into 6 formats: LinkedIn long/short, X thread, email, pull quotes, blog outline</div>
+          </div>
+        </div>
+        <div id="repurposeContent"><div class="empty-state"><div class="spinner"></div><p>Loading…</p></div></div>
+      </div>
+
+      <!-- ══ PRODUCT PANEL ══ -->
+      <div class="panel" id="panel-product">
+        <div class="agent-panel-header">
+          <div>
+            <div class="agent-panel-title">🎓 Product Creator</div>
+            <div class="agent-panel-meta">Course outlines, workshop plans, lead magnets, pricing recommendations, and launch copy</div>
+          </div>
+        </div>
+        <div id="productContent"><div class="empty-state"><div class="spinner"></div><p>Loading…</p></div></div>
+      </div>
+
+      <!-- ══ LEAD NURTURE PANEL ══ -->
+      <div class="panel" id="panel-leadnurture">
+        <div class="agent-panel-header">
+          <div>
+            <div class="agent-panel-title">💌 Lead Nurture</div>
+            <div class="agent-panel-meta">Email sequences: welcome, lead magnet follow-up, re-engagement, pre-launch</div>
+          </div>
+        </div>
+        <div id="leadnurtureContent"><div class="empty-state"><div class="spinner"></div><p>Loading…</p></div></div>
+      </div>
+
+      <!-- ══ ENQUIRY PANEL ══ -->
+      <div class="panel" id="panel-enquiry">
+        <div class="agent-panel-header">
+          <div>
+            <div class="agent-panel-title">📨 Enquiry Agent</div>
+            <div class="agent-panel-meta" id="enquiryMeta">Processes inbound enquiries — categorises, prioritises, and drafts warm responses</div>
+          </div>
+        </div>
+        <div id="enquiryContent"><div class="empty-state"><div class="spinner"></div><p>Loading…</p></div></div>
+      </div>
+
+      <!-- ══ SEO PANEL ══ -->
+      <div class="panel" id="panel-seo">
+        <div class="agent-panel-header">
+          <div>
+            <div class="agent-panel-title">🔎 SEO Gap Finder</div>
+            <div class="agent-panel-meta" id="seoMeta">Audits masteryourcareerpath.com against target career and coaching keywords</div>
+          </div>
+        </div>
+        <div id="seoContent"><div class="empty-state"><div class="spinner"></div><p>Loading…</p></div></div>
+      </div>
+
+      <!-- ══ HEALTH PANEL ══ -->
+      <div class="panel" id="panel-health">
+        <div class="agent-panel-header">
+          <div>
+            <div class="agent-panel-title">🏥 Site Health Monitor</div>
+            <div class="agent-panel-meta" id="healthMeta">Checks all pages and links on masteryourcareerpath.com</div>
+          </div>
+        </div>
+        <div id="healthContent"><div class="empty-state"><div class="spinner"></div><p>Loading…</p></div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ CONFIG — generate hash: https://emn178.github.io/online-tools/sha256.html ══
+const ADMIN_PASSWORD_HASH = '924325fbd85f063f2439544a4bd4cbe61433c2c83eb3e5a7ead42b984b7a2223';
+
+let _agentData = null;
+let _currentPanel = 'overview';
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function hubLogin() {
+  const username = document.getElementById('usernameInput').value.trim();
+  const password = document.getElementById('passwordInput').value;
+  const errEl = document.getElementById('loginError');
+  errEl.classList.remove('show');
+  if (!username) { errEl.textContent = 'Please enter your username.'; errEl.classList.add('show'); return; }
+  if (username.toLowerCase() !== 'admin') { errEl.textContent = 'Username not recognised.'; errEl.classList.add('show'); return; }
+  if (!password) { errEl.textContent = 'Please enter your password.'; errEl.classList.add('show'); return; }
+  const hash = await sha256(password);
+  if (hash === ADMIN_PASSWORD_HASH) {
+    sessionStorage.setItem('adminAuth', 'true');
+    sessionStorage.setItem('adminUser', username);
+    showDashboard(username);
+  } else {
+    errEl.textContent = 'Incorrect password.';
+    errEl.classList.add('show');
+    document.getElementById('passwordInput').value = '';
+  }
+}
+
+function logout() { sessionStorage.clear(); location.reload(); }
+
+function showDashboard(username) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('hubApp').classList.add('visible');
+  const user = username || sessionStorage.getItem('adminUser') || 'admin';
+  document.getElementById('sidebarUsername').textContent = user;
+  document.getElementById('sidebarAvatar').textContent = user[0].toUpperCase();
+  document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  loadAgentData(false);
+}
+
+if (sessionStorage.getItem('adminAuth') === 'true') showDashboard();
+
+const PANEL_TITLES = {
+  overview: 'Dashboard', curator: 'Content Curator', newsletter: 'Newsletter',
+  repurpose: 'Content Repurposing', product: 'Product Creator', leadnurture: 'Lead Nurture',
+  enquiry: 'Enquiries', seo: 'SEO Gaps', health: 'Site Health'
+};
+
+function showPanel(name, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('topbarTitle').textContent = PANEL_TITLES[name] || name;
+  _currentPanel = name;
+  if (_agentData) renderPanel(name, _agentData);
+}
+
+async function loadAgentData(forceRefresh) {
+  if (_agentData && !forceRefresh) { renderAgentOverview(_agentData); return; }
+  const files = ['curator','newsletter','repurpose','product','lead-nurture','enquiry','seo','health'];
+  const keys  = ['curator','newsletter','repurpose','product','leadNurture','enquiry','seo','health'];
+  try {
+    const results = await Promise.all(
+      files.map(f => fetch(`/data/agent-summaries/${f}.json?t=${Date.now()}`)
+        .then(r => r.ok ? r.json() : { status: 'never_run' })
+        .catch(() => ({ status: 'never_run' }))
+      )
+    );
+    _agentData = Object.fromEntries(keys.map((k, i) => [k, results[i]]));
+    renderAgentOverview(_agentData);
+    buildAttentionPanel(_agentData);
+    if (_currentPanel !== 'overview') renderPanel(_currentPanel, _agentData);
+  } catch (err) {
+    console.warn('Could not load agent summaries:', err.message);
+    renderAgentFallback();
+  }
+}
+
+const STATUS_LABELS = { ok: 'All good', warning: 'Attention needed', error: 'Issue detected', never_run: 'Not yet run', empty: 'No data' };
+
+function renderAgentOverview(data) {
+  const agents = [
+    { key: 'curator',    icon: '🎯', name: 'Curator',      panel: 'curator',     meta: d => d.topPicks ? `${d.topPicks} picks` : 'Not run' },
+    { key: 'newsletter', icon: '📰', name: 'Newsletter',   panel: 'newsletter',  meta: d => d.issueTheme ? d.issueTheme : 'Not run' },
+    { key: 'repurpose',  icon: '♻️', name: 'Repurpose',    panel: 'repurpose',   meta: d => d.formatsProduced ? `${d.formatsProduced} formats` : 'Not run' },
+    { key: 'product',    icon: '🎓', name: 'Products',     panel: 'product',     meta: d => d.productTitle || 'Not run' },
+    { key: 'leadNurture',icon: '💌', name: 'Lead Nurture', panel: 'leadnurture', meta: d => d.emailsProduced ? `${d.emailsProduced} emails` : 'Not run' },
+    { key: 'enquiry',    icon: '📨', name: 'Enquiries',    panel: 'enquiry',     meta: d => d.highPriority ? `${d.highPriority} high priority` : 'Not run' },
+    { key: 'seo',        icon: '🔎', name: 'SEO Gaps',     panel: 'seo',         meta: d => d.gapsFound ? `${d.gapsFound} gaps` : 'Not run' },
+    { key: 'health',     icon: '🏥', name: 'Site Health',  panel: 'health',      meta: d => d.pagesChecked ? `${d.pagesChecked} pages` : 'Not run' },
+  ];
+
+  setText('statPicks',    data.curator?.topPicks ?? '—');
+  setText('statDrafts',   data.newsletter?.status === 'ok' ? '1' : '—');
+  setText('statEnquiries',data.enquiry?.highPriority ?? '—');
+  setText('statGaps',     data.seo?.gapsFound ?? '—');
+
+  setText('curatorTileBadge',   data.curator?.topPicks ? data.curator.topPicks + ' articles ready' : 'Run curator');
+  setText('newsletterTileBadge',data.newsletter?.issueTheme || 'Run newsletter agent');
+  setText('productTileBadge',   data.product?.productTitle || 'No product yet');
+  setText('enquiryTileBadge',   data.enquiry?.highPriority ? data.enquiry.highPriority + ' need response' : 'No enquiries');
+
+  const grid = document.getElementById('agentStatusGrid');
+  grid.innerHTML = agents.map(a => {
+    const d = data[a.key] || { status: 'never_run' };
+    const st = d.status || 'never_run';
+    const click = `onclick="showPanel('${a.panel}', null)"`;
+    return `<div class="agent-status-card status-${st}" ${click}>
+      <div class="asc-icon">${a.icon}</div>
+      <div class="asc-name">${a.name}</div>
+      <div class="asc-status ${st}">${STATUS_LABELS[st]}</div>
+      <div class="asc-meta">${a.meta(d)}</div>
+    </div>`;
+  }).join('');
+
+  updateNavBadge('navBadgeCurator',  data.curator?.topPicks > 0 ? data.curator.topPicks : null);
+  updateNavBadge('navBadgeNewsletter',data.newsletter?.status === 'ok' ? '1' : null);
+  updateNavBadge('navBadgeRepurpose',data.repurpose?.formatsProduced > 0 ? data.repurpose.formatsProduced : null);
+  updateNavBadge('navBadgeProduct',  data.product?.productTitle ? '1' : null);
+  updateNavBadge('navBadgeEnquiry',  data.enquiry?.highPriority > 0 ? data.enquiry.highPriority : null);
+  updateNavBadge('navBadgeSeo',      data.seo?.gapsFound > 0 ? data.seo.gapsFound : null);
+  updateNavBadge('navBadgeHealth',   data.health?.criticalIssues > 0 ? '!' : null);
+}
+
+function updateNavBadge(id, value) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (value) { el.textContent = value; el.style.display = 'inline-flex'; }
+  else { el.style.display = 'none'; }
+}
+
+function renderAgentFallback() {
+  ['statPicks','statDrafts','statEnquiries','statGaps'].forEach(id => setText(id, '—'));
+  document.getElementById('agentStatusGrid').innerHTML = `
+    <div class="agent-status-card" style="grid-column:1/-1;text-align:center;color:var(--muted);font-size:0.85rem;padding:1.5rem">
+      Agents not yet run — use the CLI commands in <code>mycp-agents/USAGE.md</code> to get started.
+    </div>`;
+  document.getElementById('attentionLoading').innerHTML = '⚙️ Run the agents first to populate this dashboard.';
+  document.getElementById('attentionSub').textContent = 'Pending setup';
+}
+
+function buildAttentionPanel(data) {
+  const items = [];
+  if ((data.enquiry?.highPriority ?? 0) > 0)
+    items.push({ dot: 'red',   text: `${data.enquiry.highPriority} high-priority enquir${data.enquiry.highPriority > 1 ? 'ies' : 'y'} awaiting response`, action: 'Review →', panel: 'enquiry' });
+  if ((data.curator?.topPicks ?? 0) > 0)
+    items.push({ dot: 'green', text: `${data.curator.topPicks} curated articles ready for LinkedIn or newsletter`, action: 'Curate →', panel: 'curator' });
+  if (data.newsletter?.status === 'ok')
+    items.push({ dot: 'blue',  text: `Newsletter draft ready: ${data.newsletter.issueTheme || 'this week'}`, action: 'Preview →', panel: 'newsletter' });
+  if ((data.seo?.gapsFound ?? 0) > 0)
+    items.push({ dot: 'amber', text: `${data.seo.gapsFound} SEO content gaps identified`, action: 'Plan →', panel: 'seo' });
+  if ((data.health?.criticalIssues ?? 0) > 0)
+    items.push({ dot: 'red',   text: `${data.health.criticalIssues} critical site issue${data.health.criticalIssues > 1 ? 's' : ''} detected`, action: 'Check →', panel: 'health' });
+
+  const loading = document.getElementById('attentionLoading');
+  const list = document.getElementById('attentionList');
+  const sub = document.getElementById('attentionSub');
+
+  if (items.length === 0) {
+    loading.innerHTML = '✅ All clear — nothing needs attention right now.';
+    sub.textContent = 'All clear';
+    return;
+  }
+  sub.textContent = items.length + ' item' + (items.length > 1 ? 's' : '');
+  loading.style.display = 'none';
+  list.style.display = 'block';
+  list.innerHTML = items.map(i => `
+    <li class="attention-item">
+      <span class="attention-dot ${i.dot}"></span>
+      <span class="attention-text">${i.text}</span>
+      <button class="attention-action" onclick="showPanel('${i.panel}', null)">${i.action}</button>
+    </li>`).join('');
+}
+
+function renderPanel(name, data) {
+  const map = {
+    curator: renderCurator, newsletter: renderNewsletter, repurpose: renderRepurpose,
+    product: renderProduct, leadnurture: renderLeadNurture,
+    enquiry: renderEnquiry, seo: renderSeo, health: renderHealth
+  };
+  if (map[name]) map[name](data);
+}
+
+function renderCurator(data) {
+  const el = document.getElementById('curatorContent');
+  const d = data.curator;
+  if (!d || d.status === 'never_run') {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🎯</div>
+      <p>No curator digest yet.<br><br>Run:<br><code style="background:var(--blue-ghost);padding:0.2rem 0.5rem;border-radius:5px;font-family:monospace">cd /home/damaka/mycp-agents/agents/content-curator<br>claude "Scan career development, coaching, and workplace news from the last 7 days."</code></p></div>`;
+    return;
+  }
+  if (d.lastRun) document.getElementById('curatorMeta').textContent = `Last run: ${d.lastRun} · ${d.topPicks} top picks`;
+  el.innerHTML = `
+    <div style="display:flex;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <div class="vital-card" style="flex:1"><div class="vital-label">Top Picks</div><div class="vital-value" style="color:var(--green)">${d.topPicks ?? 0}</div></div>
+      <div class="vital-card" style="flex:1"><div class="vital-label">Top Headline</div><div class="vital-value" style="font-size:0.85rem;line-height:1.3">${escHtml(d.topHeadline || '—')}</div></div>
+    </div>
+    <div style="background:var(--blue-ghost);border-radius:12px;padding:1rem 1.25rem;font-size:0.875rem;color:var(--navy)">
+      ${escHtml(d.notes || 'Full digest saved to mycp-agents/outputs/curator-' + d.lastRun + '.md')}
+    </div>`;
+}
+
+function renderNewsletter(data) {
+  const el = document.getElementById('newsletterContent');
+  const d = data.newsletter;
+  if (!d || d.status === 'never_run') {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">📰</div>
+      <p>No newsletter drafts yet.<br><br>Run the Content Curator first, then:<br><br>
+      <code style="background:var(--blue-ghost);padding:0.2rem 0.5rem;border-radius:5px;font-family:monospace">cd /home/damaka/mycp-agents/agents/newsletter<br>claude "Draft this week's Master Your Career Path newsletter."</code></p></div>`;
+    return;
+  }
+  el.innerHTML = `
+    <div style="background:var(--blue-ghost);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:0.875rem;color:var(--navy)">
+      <strong>The Career Clarity Weekly</strong> — empowering professionals to take control of their careers
+    </div>
+    <div class="content-card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <div>
+        <div class="content-card-title">📰 ${escHtml(d.issueTheme || 'This week\'s issue')}</div>
+        <div class="content-card-meta">Drafted ${escHtml(d.lastRun)} · ${d.wordCount ? d.wordCount + ' words' : ''}</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+        <a class="agent-btn primary" href="/outputs/newsletter/newsletter-${d.lastRun}.md" target="_blank">Preview →</a>
+        <button class="agent-btn secondary" onclick="copyToClipboard('/outputs/newsletter/newsletter-${d.lastRun}.md', this)">Copy link</button>
+      </div>
+    </div>
+    <div style="background:var(--blue-ghost);border-radius:12px;padding:1.25rem;margin-top:1rem;font-size:0.875rem;color:var(--navy)">
+      <strong>Next steps:</strong> Preview above → copy into your email platform → personalise → schedule send.
+    </div>`;
+}
+
+function renderRepurpose(data) {
+  const el = document.getElementById('repurposeContent');
+  const d = data.repurpose;
+  if (!d || d.status === 'never_run') {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">♻️</div>
+      <p>No content repurposed yet.<br><br>Run:<br><code style="background:var(--blue-ghost);padding:0.2rem 0.5rem;border-radius:5px;font-family:monospace">cd /home/damaka/mycp-agents/agents/content-repurpose<br>claude "Repurpose this content into all six formats: [paste content]"</code></p></div>`;
+    return;
+  }
+  el.innerHTML = `
+    <div class="content-card">
+      <div class="content-card-header">
+        <div class="content-card-score" style="font-size:1.2rem">♻️</div>
+        <div>
+          <div class="content-card-title">${escHtml(d.sourceType || 'Content')} — repurposed ${escHtml(d.lastRun)}</div>
+          <div class="content-card-meta">${d.formatsProduced} formats produced</div>
+        </div>
+      </div>
+      <div style="font-size:0.85rem;color:var(--muted)">${escHtml(d.notes || 'Saved to mycp-agents/outputs/')}</div>
+    </div>`;
+}
+
+function renderProduct(data) {
+  const el = document.getElementById('productContent');
+  const d = data.product;
+  if (!d || d.status === 'never_run') {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🎓</div>
+      <p>No product outlines yet.<br><br>Run:<br><code style="background:var(--blue-ghost);padding:0.2rem 0.5rem;border-radius:5px;font-family:monospace">cd /home/damaka/mycp-agents/agents/product-creator<br>claude "Create a course outline for a new product on [topic]."</code></p></div>`;
+    return;
+  }
+  el.innerHTML = `
+    <div class="content-card">
+      <div class="content-card-title">${escHtml(d.productTitle || 'Product outline')}</div>
+      <div class="content-card-meta">${escHtml(d.productType)} · Created ${escHtml(d.lastRun)}</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem">${escHtml(d.notes || '')}</div>
+    </div>`;
+}
+
+function renderLeadNurture(data) {
+  const el = document.getElementById('leadnurtureContent');
+  const d = data.leadNurture;
+  if (!d || d.status === 'never_run') {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">💌</div>
+      <p>No nurture sequences yet.<br><br>Run:<br><code style="background:var(--blue-ghost);padding:0.2rem 0.5rem;border-radius:5px;font-family:monospace">cd /home/damaka/mycp-agents/agents/lead-nurture<br>claude "Draft a 5-email nurture sequence for new subscribers who downloaded [lead magnet name]."</code></p></div>`;
+    return;
+  }
+  el.innerHTML = `
+    <div class="content-card">
+      <div class="content-card-title">${escHtml(d.sequenceType || 'Nurture sequence')} — ${d.emailsProduced} emails</div>
+      <div class="content-card-meta">Created ${escHtml(d.lastRun)}</div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem">${escHtml(d.notes || '')}</div>
+    </div>`;
+}
+
+function renderEnquiry(data) {
+  const el = document.getElementById('enquiryContent');
+  const d = data.enquiry;
+  if (!d || d.status === 'never_run') {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">📨</div>
+      <p>No enquiries processed yet.<br><br>Drop files into <code style="background:var(--blue-ghost);padding:0.2rem 0.5rem;border-radius:5px;font-family:monospace">mycp-agents/shared/enquiries/pending/</code> then run:<br><br>
+      <code style="background:var(--blue-ghost);padding:0.2rem 0.5rem;border-radius:5px;font-family:monospace">cd /home/damaka/mycp-agents/agents/enquiry<br>claude "Process any pending enquiries."</code></p></div>`;
+    return;
+  }
+  if (d.lastRun) document.getElementById('enquiryMeta').textContent = `Last run: ${d.lastRun} · ${d.enquiriesProcessed} processed · ${d.highPriority} high priority`;
+  el.innerHTML = `
+    <div style="display:flex;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <div class="vital-card" style="flex:1"><div class="vital-label">Processed</div><div class="vital-value">${d.enquiriesProcessed ?? 0}</div></div>
+      <div class="vital-card" style="flex:1"><div class="vital-label">High Priority</div><div class="vital-value" style="color:${d.highPriority > 0 ? 'var(--red)' : 'var(--green)'}">${d.highPriority ?? 0}</div></div>
+    </div>
+    <div style="font-size:0.85rem;color:var(--muted)">${escHtml(d.notes || '')}</div>`;
+}
+
+function renderSeo(data) {
+  const el = document.getElementById('seoContent');
+  const d = data.seo;
+  if (!d || d.status === 'never_run') {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🔎</div>
+      <p>No SEO report yet.<br><br>Run:<br><code style="background:var(--blue-ghost);padding:0.2rem 0.5rem;border-radius:5px;font-family:monospace">cd /home/damaka/mycp-agents/agents/seo-gaps<br>claude "Audit masteryourcareerpath.com against target keywords and identify gaps."</code></p></div>`;
+    return;
+  }
+  if (d.lastRun) document.getElementById('seoMeta').textContent = `Last run: ${d.lastRun} · ${d.gapsFound} gaps found`;
+  el.innerHTML = `
+    <div style="display:flex;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <div class="vital-card" style="flex:1"><div class="vital-label">Gaps Found</div><div class="vital-value" style="color:${d.gapsFound > 0 ? 'var(--accent)' : 'var(--green)'}">${d.gapsFound ?? 0}</div></div>
+      <div class="vital-card" style="flex:1"><div class="vital-label">Top Gap</div><div class="vital-value" style="font-size:0.85rem;line-height:1.3">${escHtml(d.topGap || '—')}</div></div>
+    </div>
+    <div style="font-size:0.85rem;color:var(--muted)">${escHtml(d.notes || 'Full audit saved to mycp-agents/outputs/')}</div>`;
+}
+
+function renderHealth(data) {
+  const el = document.getElementById('healthContent');
+  const d = data.health;
+  if (!d || d.status === 'never_run') {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🏥</div>
+      <p>No health report yet.<br><br>Run:<br><code style="background:var(--blue-ghost);padding:0.2rem 0.5rem;border-radius:5px;font-family:monospace">cd /home/damaka/mycp-agents/agents/site-health<br>claude "Check all pages on masteryourcareerpath.com."</code></p></div>`;
+    return;
+  }
+  if (d.lastRun) document.getElementById('healthMeta').textContent = `Last run: ${d.lastRun} · masteryourcareerpath.com`;
+  el.innerHTML = `
+    <div style="display:flex;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <div class="vital-card" style="flex:1"><div class="vital-label">Pages Checked</div><div class="vital-value">${d.pagesChecked ?? 0}</div></div>
+      <div class="vital-card" style="flex:1"><div class="vital-label">Issues Found</div><div class="vital-value" style="color:${d.issuesFound > 0 ? 'var(--accent)' : 'var(--green)'}">${d.issuesFound ?? 0}</div></div>
+      <div class="vital-card" style="flex:1"><div class="vital-label">Critical</div><div class="vital-value" style="color:${d.criticalIssues > 0 ? 'var(--red)' : 'var(--green)'}">${d.criticalIssues ?? 0}</div></div>
+    </div>
+    <div style="font-size:0.85rem;color:var(--muted)">${escHtml(d.notes || '')}</div>`;
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
+function showToast(msg, type = 'success') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 5000);
+}
+function copyToClipboard(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn?.textContent;
+    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => { btn.textContent = orig; }, 1500); }
+    else showToast('Copied!', 'success');
+  });
+}
+</script>
+</body>
+</html>
