@@ -1,0 +1,40 @@
+{
+  "research_sources": [
+    {
+      "label": "Google News — Career",
+      "type": "google_news",
+      "keyword": "career coaching",
+      "enabled": true
+    },
+    {
+      "label": "Latest news",
+      "type": "rss_feed",
+      "url": "https://hbr.org/topic/career-planning/feed",
+      "enabled": true
+    },
+    {
+      "label": "Our website",
+      "type": "website_url",
+      "url": "https://www.masteryourcareerpath.com",
+      "enabled": true
+    },
+    {
+      "label": "Industry news",
+      "type": "rss_feed",
+      "keyword": "career development",
+      "enabled": true
+    },
+    {
+      "label": "Forbes Careers",
+      "type": "rss_feed",
+      "url": "https://www.forbes.com/careers/feed/",
+      "enabled": true
+    },
+    {
+      "label": "LinkedIn blog",
+      "type": "google_news",
+      "keyword": "LinkedIn career advice",
+      "enabled": true
+    }
+  ]
+}
