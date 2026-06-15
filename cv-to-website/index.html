@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CV-to-Website by Master Your Career Path. Turn your career story into a personal site that works for you 24/7 — $197 one-time, lifetime access." />
+  <title>CV-to-Website | Master Your Career Path</title>
+  <meta property="og:title" content="CV-to-Website | Master Your Career Path" />
+  <meta property="og:description" content="Your CV is a document. Your website is a brand. $197 one-time &mdash; lifetime access." />
+  <meta property="og:image" content="./og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold:       #F5A623;
+      --gold-dark:  #D4891A;
+      --navy:       #1B3A8C;
+      --navy-dark:  #122970;
+      --white:      #FFFFFF;
+      --off-white:  #F8F8F8;
+      --light-grey: #E8E8E8;
+      --text-dark:  #1A1A2E;
+      --text-mid:   #4A4A6A;
+      --font-display: 'Playfair Display', serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+      --radius:     10px;
+      --radius-lg:  16px;
+      --shadow-sm:  0 2px 8px rgba(27,58,140,0.08);
+      --shadow-md:  0 6px 24px rgba(27,58,140,0.12);
+      --shadow-lg:  0 16px 48px rgba(27,58,140,0.16);
+      --transition: 0.25s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); color: var(--text-dark); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section-pad { padding: 96px 0; }
+    .text-centre { text-align: center; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .section-heading--white { color: var(--white); }
+    .section-heading--dark  { color: var(--text-dark); }
+
+    .section-sub { font-size: 1.0625rem; color: var(--text-mid); max-width: 640px; margin-bottom: 48px; }
+    .section-sub--white { color: rgba(255,255,255,0.8); }
+
+    /* Fade-in */
+    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in.delay-1 { transition-delay: 0.1s; }
+    .fade-in.delay-2 { transition-delay: 0.2s; }
+    .fade-in.delay-3 { transition-delay: 0.3s; }
+    .fade-in.delay-4 { transition-delay: 0.4s; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; border-radius: var(--radius);
+      font-family: var(--font-body); font-size: 0.9375rem; font-weight: 700;
+      letter-spacing: 0.01em; cursor: pointer; border: 2px solid transparent;
+      transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .btn--gold { background: var(--gold); color: var(--navy-dark); }
+    .btn--gold:hover { background: var(--gold-dark); }
+    .btn--navy { background: var(--navy); color: var(--white); }
+    .btn--navy:hover { background: var(--navy-dark); }
+    .btn--navy-outline { background: transparent; color: var(--navy); border-color: var(--navy); }
+    .btn--navy-outline:hover { background: var(--navy); color: var(--white); }
+    .btn--white { background: var(--white); color: var(--navy); }
+    .btn--white:hover { background: var(--off-white); }
+
+    /* ── NAV ── */
+    #site-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--light-grey);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 32px; }
+    .nav-logo { font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; color: var(--navy); }
+    .nav-logo span { color: var(--gold); }
+    .nav-cta { font-size: 0.875rem; padding: 10px 20px; }
+
+    /* ── HERO ── */
+    #hero {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #2250b3 100%);
+      padding: 100px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 70% 50%, rgba(245,166,35,0.12) 0%, transparent 70%);
+    }
+    .hero-inner { position: relative; max-width: 760px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,166,35,0.15); border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 20px; padding: 6px 16px;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 28px;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 24px;
+    }
+    .hero-headline em { color: var(--gold); font-style: italic; }
+    .hero-sub { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.85); max-width: 600px; margin-bottom: 40px; line-height: 1.65; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; }
+    .hero-note { margin-top: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.55); }
+
+    /* ── PROBLEM ── */
+    #problem { background: var(--navy-dark); padding: 80px 0; }
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 48px 0 40px; }
+    @media (max-width: 768px) { .problem-grid { grid-template-columns: 1fr; } }
+    .problem-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+    }
+    .problem-card__icon { font-size: 2rem; margin-bottom: 16px; }
+    .problem-card__title { font-weight: 700; color: var(--white); margin-bottom: 10px; font-size: 1.0625rem; }
+    .problem-card__text { font-size: 0.9375rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+    .problem-closing { text-align: center; font-family: var(--font-display); font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-style: italic; color: var(--gold); }
+
+    /* ── FEATURES ── */
+    #features { padding: 96px 0; }
+    .features-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 56px;
+    }
+    @media (max-width: 768px) { .features-layout { grid-template-columns: 1fr; gap: 40px; } }
+    .features-list { display: flex; flex-direction: column; gap: 20px; }
+    .feature-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px; background: var(--off-white); border-radius: var(--radius);
+      border: 1px solid var(--light-grey); transition: box-shadow var(--transition);
+    }
+    .feature-item:hover { box-shadow: var(--shadow-sm); }
+    .feature-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .feature-text strong { display: block; font-weight: 700; color: var(--navy); margin-bottom: 4px; font-size: 0.9375rem; }
+    .feature-text p { font-size: 0.875rem; color: var(--text-mid); line-height: 1.55; }
+
+    /* Price card */
+    .price-card {
+      background: var(--white); border: 2px solid var(--gold);
+      border-radius: var(--radius-lg); padding: 40px 36px;
+      box-shadow: 0 0 0 4px rgba(245,166,35,0.1), var(--shadow-md);
+      text-align: center;
+    }
+    .price-card__badge {
+      display: inline-block;
+      background: rgba(245,166,35,0.12); color: var(--gold-dark);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .price-card__eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .price-card__price { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 3.2rem); font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: 6px; }
+    .price-card__note { font-size: 0.875rem; color: var(--text-mid); margin-bottom: 28px; }
+    .price-card__divider { height: 1px; background: var(--light-grey); margin: 20px 0; }
+    .price-card__perks { display: flex; flex-direction: column; gap: 12px; text-align: left; margin-bottom: 32px; }
+    .price-card__perk {
+      font-size: 0.9rem; color: var(--text-mid); display: flex; gap: 10px; align-items: flex-start; line-height: 1.5;
+    }
+    .price-card__perk::before { content: "✓"; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+    /* ── FOR WHO ── */
+    #for-who { padding: 96px 0; background: var(--off-white); border-top: 1px solid var(--light-grey); border-bottom: 1px solid var(--light-grey); }
+    .for-who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    @media (max-width: 768px) { .for-who-grid { grid-template-columns: 1fr; } }
+    .for-who-card {
+      background: var(--white); border: 1px solid var(--light-grey); border-radius: var(--radius-lg);
+      padding: 28px 24px; transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .for-who-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .for-who-card__icon { font-size: 2rem; margin-bottom: 14px; }
+    .for-who-card__title { font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .for-who-card__text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.55; }
+
+    /* ── FAQ ── */
+    #faq { padding: 96px 0; }
+    .faq-list { max-width: 720px; margin: 48px auto 0; }
+    .faq-item { border-bottom: 1px solid var(--light-grey); }
+    .faq-question {
+      width: 100%; background: none; border: none; padding: 22px 0;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: var(--text-dark);
+      cursor: pointer; text-align: left;
+    }
+    .faq-question:hover { color: var(--navy); }
+    .faq-chevron { width: 20px; height: 20px; flex-shrink: 0; color: var(--gold); transition: transform 0.3s; }
+    .faq-chevron svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 2.5; }
+    .faq-question[aria-expanded="true"] .faq-chevron { transform: rotate(180deg); }
+    .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+    .faq-answer > div { overflow: hidden; }
+    .faq-question[aria-expanded="true"] + .faq-answer { grid-template-rows: 1fr; }
+    .faq-answer-inner { padding: 0 0 22px; font-size: 0.9375rem; color: var(--text-mid); line-height: 1.7; }
+
+    /* ── FINAL CTA ── */
+    #final-cta { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); padding: 96px 0; text-align: center; }
+    .final-cta-btns { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 40px; }
+
+    /* ── FOOTER ── */
+    footer { background: #0d1f52; color: rgba(255,255,255,0.6); padding: 40px 0; text-align: center; font-size: 0.875rem; }
+    footer a { color: var(--gold); }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="https://masteryourcareerpath.com" class="nav-logo"><span>M</span>aster Your Career Path</a>
+        <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold nav-cta">Get CV-to-Website &mdash; $197</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner fade-in">
+        <div class="hero-eyebrow">A Master Your Career Path Programme</div>
+        <h1 class="hero-headline">
+          Your CV is a document.<br/>Your website is a <em>brand.</em>
+        </h1>
+        <p class="hero-sub">
+          Most professionals are invisible online. CV-to-Website turns your career story into a personal site that works for you 24/7 &mdash; attracting recruiters, clients, and opportunities even when you&rsquo;re not actively looking.
+        </p>
+        <div class="hero-ctas">
+          <!-- ⚠️ PLACEHOLDER — update href to Skool course checkout URL once live -->
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold">Get CV-to-Website &mdash; $197</a>
+          <a href="https://masteryourcareerpath.com" class="btn btn--white">Learn about PRIME</a>
+        </div>
+        <p class="hero-note">Coming soon to Skool &middot; $197 one-time &middot; Lifetime access</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <h2 class="section-heading section-heading--white">
+          Most professionals are<br/>invisible online. Are you?
+        </h2>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card fade-in delay-1">
+          <div class="problem-card__icon">📄</div>
+          <div class="problem-card__title">Your CV is passive</div>
+          <p class="problem-card__text">A CV only works when someone asks for it. A personal website works around the clock &mdash; found by recruiters, shared by contacts, discovered via search.</p>
+        </div>
+        <div class="problem-card fade-in delay-2">
+          <div class="problem-card__icon">🔍</div>
+          <div class="problem-card__title">Recruiters search before they reach out</div>
+          <p class="problem-card__text">Before a recruiter calls you, they Google you. If they find nothing, you lose the edge. A professional site gives them a reason to pick up the phone.</p>
+        </div>
+        <div class="problem-card fade-in delay-3">
+          <div class="problem-card__icon">⚡</div>
+          <div class="problem-card__title">Everyone else looks the same on paper</div>
+          <p class="problem-card__text">A personal website lets you show personality, proof, and presence that a PDF simply can&rsquo;t. It&rsquo;s your unfair advantage in a crowded market.</p>
+        </div>
+      </div>
+      <p class="problem-closing fade-in">&ldquo;In a digital world, your website is your handshake.&rdquo;</p>
+    </div>
+  </section>
+
+  <!-- FEATURES + PRICE CARD -->
+  <section id="features" class="section-pad">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <span class="eyebrow">What You Get</span>
+        <h2 class="section-heading">From blank page to live site</h2>
+        <p class="section-sub" style="margin: 0 auto;">No coding. No jargon. Just a clean, professional site that tells your story.</p>
+      </div>
+      <div class="features-layout">
+        <div class="features-list fade-in delay-1">
+          <div class="feature-item">
+            <div class="feature-icon">🎬</div>
+            <div class="feature-text">
+              <strong>Full step-by-step video course</strong>
+              <p>Done-with-you guidance from choosing a platform to going live. Built for professionals, not developers.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">✍️</div>
+            <div class="feature-text">
+              <strong>AI copy prompts &amp; templates</strong>
+              <p>Never stare at a blank screen. Our prompts turn your experience into compelling website copy in minutes.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-text">
+              <strong>Personal brand strategy module</strong>
+              <p>Know what to say, how to say it, and how to position yourself for the roles and clients you actually want.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🔎</div>
+            <div class="feature-text">
+              <strong>SEO basics for professionals</strong>
+              <p>Optimised to be found by recruiters and hiring managers searching for your skills and background.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">👥</div>
+            <div class="feature-text">
+              <strong>Community access included</strong>
+              <p>Share your site, get feedback, and connect with peers in the Master Your Career Path Skool community.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-in delay-2">
+          <div class="price-card">
+            <!-- ⚠️ Badge: change to "Now available" once Skool course is live -->
+            <span class="price-card__badge">Coming soon to Skool</span>
+            <div class="price-card__eyebrow">CV-to-Website Course</div>
+            <div class="price-card__price">$197</div>
+            <div class="price-card__note">One-time payment &mdash; lifetime access</div>
+            <div class="price-card__divider"></div>
+            <div class="price-card__perks">
+              <div class="price-card__perk">Full step-by-step video course</div>
+              <div class="price-card__perk">Personal brand strategy module</div>
+              <div class="price-card__perk">AI copy prompts &amp; templates</div>
+              <div class="price-card__perk">SEO basics for professionals</div>
+              <div class="price-card__perk">Community access included</div>
+            </div>
+            <!-- ⚠️ PLACEHOLDER — update href to Skool course checkout URL once live -->
+            <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold" style="width:100%;">Get CV-to-Website &mdash; $197</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR WHO -->
+  <section id="for-who">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <span class="eyebrow">Who It&rsquo;s For</span>
+        <h2 class="section-heading">Built for professionals who want to be found</h2>
+      </div>
+      <div class="for-who-grid">
+        <div class="for-who-card fade-in delay-1">
+          <div class="for-who-card__icon">💼</div>
+          <div class="for-who-card__title">Job seekers</div>
+          <p class="for-who-card__text">Stand out before you even walk into the room. Give recruiters something to share &mdash; and a reason to remember you.</p>
+        </div>
+        <div class="for-who-card fade-in delay-2">
+          <div class="for-who-card__icon">🏗️</div>
+          <div class="for-who-card__title">Contractors &amp; consultants</div>
+          <p class="for-who-card__text">Win clients between contracts. A professional site makes you easy to find, easy to hire, and easy to recommend.</p>
+        </div>
+        <div class="for-who-card fade-in delay-3">
+          <div class="for-who-card__icon">🚀</div>
+          <div class="for-who-card__title">Career changers</div>
+          <p class="for-who-card__text">Control your narrative. Show what you bring from your previous experience and why it&rsquo;s an asset &mdash; not a detour.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section-pad">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="section-heading">Common questions</h2>
+      </div>
+      <ul class="faq-list" role="list">
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Do I need to know how to code?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            Not at all. CV-to-Website is built for professionals, not developers. We use no-code platforms so you can build a polished site without writing a single line of code.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            How long does it take to build my site?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            Most people have a live site within a weekend. The course is self-paced, so you can work through it in whatever blocks of time suit you.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What platform does the site use?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            The course covers our recommended no-code platform choice &mdash; selected for ease of use, professional results, and affordability. Full guidance is included in the course.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Is $197 the only cost?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            The $197 is a one-time payment for lifetime course access. There may be a small monthly cost for your chosen website platform (typically $10&ndash;$20/month), which is separate. We&rsquo;ll cover exactly what to expect inside the course.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            When does the course launch?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            CV-to-Website is coming soon to Skool. Join the Master Your Career Path community now to be first to hear when it goes live &mdash; early members may access special pricing.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            I already have a LinkedIn. Do I still need a website?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            LinkedIn is essential, but it&rsquo;s a platform you don&rsquo;t own. A personal website is your home base &mdash; it shows up in Google, lets you tell your story your way, and can&rsquo;t be changed by an algorithm update. The two work best together.
+          </div></div></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="final-cta">
+    <div class="container">
+      <div class="fade-in">
+        <h2 class="section-heading section-heading--white">Stop being invisible online.</h2>
+        <p class="section-sub section-sub--white" style="margin: 0 auto 0;">$197 one-time &mdash; lifetime access. Your website, working for you 24/7.</p>
+        <div class="final-cta-btns">
+          <!-- ⚠️ PLACEHOLDER — update href to Skool course checkout URL once live -->
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold">Get CV-to-Website &mdash; $197</a>
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--white">Join Free Community</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://masteryourcareerpath.com">masteryourcareerpath.com</a>
+        <a href="https://masteryourcareerpath.com/prime">PRIME Programme</a>
+        <a href="https://masteryourcareerpath.com/privacy.html">Privacy Policy</a>
+        <a href="https://masteryourcareerpath.com/terms.html">Terms &amp; Conditions</a>
+        <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener">Skool Community</a>
+      </div>
+      <p>&copy; 2025 Master Your Career Path. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        document.querySelectorAll('.faq-question').forEach(b => b.setAttribute('aria-expanded', 'false'));
+        btn.setAttribute('aria-expanded', String(!expanded));
+      });
+    });
+  </script>
+</body>
+</html>
