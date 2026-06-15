@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PRIME™ is a proven five-module career accelerator by Master Your Career Path. Get the tools, mindset and strategy to stand out in a job market that no longer plays by the old rules." />
+  <title>PRIME™ | Master Your Career Path</title>
+  <meta property="og:title" content="PRIME™ | Master Your Career Path" />
+  <meta property="og:description" content="A proven five-module career accelerator. Free to join, or go all in from $27/month." />
+  <meta property="og:image" content="./og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold:       #F5A623;
+      --gold-dark:  #D4891A;
+      --navy:       #1B3A8C;
+      --navy-dark:  #122970;
+      --white:      #FFFFFF;
+      --off-white:  #F8F8F8;
+      --light-grey: #E8E8E8;
+      --text-dark:  #1A1A2E;
+      --text-mid:   #4A4A6A;
+      --font-display: 'Playfair Display', serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+      --radius:     10px;
+      --radius-lg:  16px;
+      --shadow-sm:  0 2px 8px rgba(27,58,140,0.08);
+      --shadow-md:  0 6px 24px rgba(27,58,140,0.12);
+      --shadow-lg:  0 16px 48px rgba(27,58,140,0.16);
+      --transition: 0.25s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); color: var(--text-dark); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .section-pad { padding: 96px 0; }
+    .text-centre { text-align: center; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .section-heading--white { color: var(--white); }
+
+    .section-sub {
+      font-size: 1.0625rem;
+      color: var(--text-mid);
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+    .section-sub--white { color: rgba(255,255,255,0.8); }
+
+    /* Fade-in */
+    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in.delay-1 { transition-delay: 0.1s; }
+    .fade-in.delay-2 { transition-delay: 0.2s; }
+    .fade-in.delay-3 { transition-delay: 0.3s; }
+    .fade-in.delay-4 { transition-delay: 0.4s; }
+    .fade-in.delay-5 { transition-delay: 0.5s; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+    .btn--gold { background: var(--gold); color: var(--navy-dark); }
+    .btn--gold:hover { background: var(--gold-dark); }
+
+    .btn--navy { background: var(--navy); color: var(--white); }
+    .btn--navy:hover { background: var(--navy-dark); }
+
+    .btn--navy-outline { background: transparent; color: var(--navy); border-color: var(--navy); }
+    .btn--navy-outline:hover { background: var(--navy); color: var(--white); }
+
+    .btn--white { background: var(--white); color: var(--navy); }
+    .btn--white:hover { background: var(--off-white); }
+
+    /* ── NAV ── */
+    #site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--light-grey);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 32px;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-cta { font-size: 0.875rem; padding: 10px 20px; }
+
+    /* ── HERO ── */
+    #hero {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #2250b3 100%);
+      padding: 100px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 70% 50%, rgba(245,166,35,0.12) 0%, transparent 70%);
+    }
+    .hero-inner { position: relative; max-width: 760px; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,166,35,0.15);
+      border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero-headline em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin-bottom: 40px;
+      line-height: 1.65;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; }
+
+    /* ── PROBLEM ── */
+    #problem {
+      background: var(--navy-dark);
+      padding: 80px 0;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin: 48px 0 40px;
+    }
+    @media (max-width: 768px) { .problem-grid { grid-template-columns: 1fr; } }
+    .problem-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+    }
+    .problem-card__icon { font-size: 2rem; margin-bottom: 16px; }
+    .problem-card__title { font-weight: 700; color: var(--white); margin-bottom: 10px; font-size: 1.0625rem; }
+    .problem-card__text { font-size: 0.9375rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+    .problem-closing {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    /* ── PRIME ACRONYM ── */
+    #what-is-prime { padding: 96px 0; background: var(--white); }
+    .prime-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      margin-top: 56px;
+    }
+    @media (max-width: 900px) { .prime-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .prime-grid { grid-template-columns: 1fr; } }
+    .prime-card {
+      background: var(--off-white);
+      border: 1px solid var(--light-grey);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .prime-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .prime-letter {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .prime-title { font-weight: 700; color: var(--navy); margin-bottom: 10px; font-size: 0.9375rem; }
+    .prime-body { font-size: 0.875rem; color: var(--text-mid); line-height: 1.55; }
+
+    /* ── JOURNEY ── */
+    #journey { padding: 96px 0; background: var(--off-white); border-top: 1px solid var(--light-grey); border-bottom: 1px solid var(--light-grey); }
+    .journey-steps { display: flex; flex-direction: column; gap: 0; margin-top: 56px; position: relative; }
+    .journey-steps::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), var(--navy));
+      border-radius: 2px;
+    }
+    @media (max-width: 600px) { .journey-steps::before { display: none; } }
+    .step { display: flex; gap: 28px; align-items: flex-start; padding: 32px 0; position: relative; }
+    .step + .step { border-top: 1px solid var(--light-grey); }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num--gold { background: var(--gold); color: var(--navy-dark); }
+    .step-content { flex: 1; padding-top: 12px; }
+    .step-title { font-weight: 700; color: var(--navy); font-size: 1.0625rem; margin-bottom: 6px; }
+    .step-body { font-size: 0.9375rem; color: var(--text-mid); line-height: 1.6; }
+
+    /* ── PRICING ── */
+    #pricing { padding: 96px 0; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+      align-items: start;
+    }
+    @media (max-width: 1000px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+    .pricing-card {
+      background: var(--white);
+      border: 1px solid var(--light-grey);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .pricing-card--featured {
+      border-color: var(--gold);
+      border-width: 2px;
+      box-shadow: 0 0 0 4px rgba(245,166,35,0.12), var(--shadow-md);
+      position: relative;
+    }
+
+    .pricing-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy-dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .pricing-badge--navy { background: var(--navy); color: var(--white); }
+    .pricing-badge--dark { background: var(--text-dark); color: var(--white); }
+
+    .pricing-subtitle { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .pricing-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+    .pricing-price { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+    .pricing-price sub { font-size: 0.55em; color: var(--text-mid); font-family: var(--font-body); }
+    .pricing-price-note { font-size: 0.8rem; color: var(--text-mid); margin-bottom: 8px; }
+    .pricing-divider { height: 1px; background: var(--light-grey); margin: 20px 0; }
+    .pricing-features { flex: 1; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .pricing-feature {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      line-height: 1.45;
+    }
+    .pricing-feature::before { content: "✓"; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .pricing-note { font-size: 0.8rem; color: var(--text-mid); text-align: center; margin-top: 12px; }
+
+    /* ── FAQ ── */
+    #faq { padding: 96px 0; background: var(--off-white); border-top: 1px solid var(--light-grey); }
+    .faq-list { max-width: 720px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 0; }
+    .faq-item { border-bottom: 1px solid var(--light-grey); }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 22px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      text-align: left;
+    }
+    .faq-question:hover { color: var(--navy); }
+    .faq-chevron { width: 20px; height: 20px; flex-shrink: 0; color: var(--gold); transition: transform 0.3s; }
+    .faq-chevron svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 2.5; }
+    .faq-question[aria-expanded="true"] .faq-chevron { transform: rotate(180deg); }
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+    .faq-answer > div { overflow: hidden; }
+    .faq-question[aria-expanded="true"] + .faq-answer { grid-template-rows: 1fr; }
+    .faq-answer-inner { padding: 0 0 22px; font-size: 0.9375rem; color: var(--text-mid); line-height: 1.7; }
+
+    /* ── FINAL CTA ── */
+    #final-cta {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+      padding: 96px 0;
+      text-align: center;
+    }
+    .final-cta-btns { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 40px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d1f52;
+      color: rgba(255,255,255,0.6);
+      padding: 40px 0;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+    footer a { color: var(--gold); }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="site-nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="https://masteryourcareerpath.com" class="nav-logo"><span>M</span>aster Your Career Path</a>
+        <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold nav-cta">Join PRIME &mdash; from $27/mo</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner fade-in">
+        <div class="hero-eyebrow">Five-module career accelerator</div>
+        <h1 class="hero-headline">
+          AI just changed the<br/>rules of hiring.<br/>
+          <em>Here&rsquo;s how you win anyway.</em>
+        </h1>
+        <p class="hero-sub">
+          PRIME&trade; is a proven five-module career accelerator that gives you the tools, mindset and strategy to stand out &mdash; in a job market that no longer plays by the old rules.
+        </p>
+        <div class="hero-ctas">
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold">Join PRIME &mdash; from $27/mo</a>
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--white">Join Free Community</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <h2 class="section-heading section-heading--white">
+          The job market shifted.<br/>Most people didn&rsquo;t notice.
+        </h2>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card fade-in delay-1">
+          <div class="problem-card__icon">🤖</div>
+          <div class="problem-card__title">AI is replacing junior roles</div>
+          <p class="problem-card__text">The tasks once done by entry-level hires &mdash; research, data entry, drafting, scheduling &mdash; are now automated. The bar to getting hired has risen.</p>
+        </div>
+        <div class="problem-card fade-in delay-2">
+          <div class="problem-card__icon">📉</div>
+          <div class="problem-card__title">Entry-level has declined sharply</div>
+          <p class="problem-card__text">Across technology, finance, law, and professional services, junior vacancies have fallen significantly. Competition is fiercer than ever before.</p>
+        </div>
+        <div class="problem-card fade-in delay-3">
+          <div class="problem-card__icon">🎓</div>
+          <div class="problem-card__title">A degree is no longer enough</div>
+          <p class="problem-card__text">Employers are looking beyond qualifications. Positioning, presence, and preparation separate the candidates who get hired from those who don&rsquo;t.</p>
+        </div>
+      </div>
+      <p class="problem-closing fade-in">&ldquo;This isn&rsquo;t a blip. It&rsquo;s a shift. And PRIME is your response to it.&rdquo;</p>
+    </div>
+  </section>
+
+  <!-- WHAT IS PRIME -->
+  <section id="what-is-prime" class="section-pad">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <span class="eyebrow">The Programme</span>
+        <h2 class="section-heading">PRIME&trade; is not a course. It&rsquo;s a transformation.</h2>
+        <p class="section-sub" style="margin:0 auto 0;">Five focused modules. One coherent strategy. A completely bespoke journey from where you are to where you want to be.</p>
+      </div>
+      <div class="prime-grid">
+        <div class="prime-card fade-in delay-1">
+          <div class="prime-letter">P</div>
+          <div class="prime-title">Profile Preparation &amp; Positioning</div>
+          <p class="prime-body">Define your strengths, craft a compelling CV and cover letter, and position yourself for the roles you actually want.</p>
+        </div>
+        <div class="prime-card fade-in delay-2">
+          <div class="prime-letter">R</div>
+          <div class="prime-title">Research</div>
+          <p class="prime-body">Master job search techniques, build your network, and use LinkedIn like a professional &mdash; not a student.</p>
+        </div>
+        <div class="prime-card fade-in delay-3">
+          <div class="prime-letter">I</div>
+          <div class="prime-title">Interview Mindset</div>
+          <p class="prime-body">Answer with confidence, read the room, and turn nerves into your competitive edge.</p>
+        </div>
+        <div class="prime-card fade-in delay-4">
+          <div class="prime-letter">M</div>
+          <div class="prime-title">Money Mastery</div>
+          <p class="prime-body">Understand offers, negotiate your salary, and make smart decisions about compensation.</p>
+        </div>
+        <div class="prime-card fade-in delay-5">
+          <div class="prime-letter">E</div>
+          <div class="prime-title">Engage</div>
+          <p class="prime-body">Create your own onboarding strategy, hit the ground running, and build a career &mdash; not just a job.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section id="journey" class="section-pad">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <span class="eyebrow">The Journey</span>
+        <h2 class="section-heading">Your path through PRIME</h2>
+        <p class="section-sub" style="margin: 0 auto;">Start free. Go deeper when you&rsquo;re ready. There&rsquo;s always a next step.</p>
+      </div>
+      <div class="journey-steps">
+        <div class="step fade-in delay-1">
+          <div class="step-num step-num--gold">1</div>
+          <div class="step-content">
+            <div class="step-title">Join the Free Community</div>
+            <p class="step-body">Get access to genuinely useful frameworks, monthly free workshops, and a community of professionals on the same journey. No cost, no pressure.</p>
+          </div>
+        </div>
+        <div class="step fade-in delay-2">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Explore PRIME</div>
+            <p class="step-body">Dip into the community content, attend a live session, and see if PRIME resonates with where you are right now.</p>
+          </div>
+        </div>
+        <div class="step fade-in delay-3">
+          <div class="step-num step-num--gold">3</div>
+          <div class="step-content">
+            <div class="step-title">Unlock Full Access</div>
+            <p class="step-body">Move to the PRIME Membership ($27/month) or get lifetime access with PRIME One-Off ($67) or join a PRIME Cohort ($375) when you&rsquo;re ready to accelerate. No pressure, no time limit.</p>
+          </div>
+        </div>
+        <div class="step fade-in delay-4">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Land Your Role</div>
+            <p class="step-body">Apply everything you&rsquo;ve learned. Show up with confidence. Negotiate your worth. Hit the ground running.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="section-pad">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <span class="eyebrow">Choose Your Path</span>
+        <h2 class="section-heading">Choose how you want to grow</h2>
+        <p class="section-sub" style="margin:0 auto;">From free community access to fully personalised 1:1 coaching &mdash; there&rsquo;s a path that fits where you are right now.</p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- Free -->
+        <div class="pricing-card fade-in delay-1">
+          <div class="pricing-subtitle">Start here</div>
+          <div class="pricing-title">Community</div>
+          <div class="pricing-price">Free</div>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li class="pricing-feature">Genuinely useful frameworks (not vague tips)</li>
+            <li class="pricing-feature">Monthly free career workshop</li>
+            <li class="pricing-feature">Access to the MYCP Skool community</li>
+            <li class="pricing-feature">Connect with peers on the same journey</li>
+          </ul>
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--navy-outline">Join Free</a>
+        </div>
+
+        <!-- One-Off -->
+        <div class="pricing-card fade-in delay-2">
+          <div class="pricing-subtitle">Own it</div>
+          <div class="pricing-title">PRIME One-Off</div>
+          <div class="pricing-price">$67 <sub style="font-size:0.6em;">&nbsp;one-time</sub></div>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li class="pricing-feature">Lifetime access to all 5 PRIME modules</li>
+            <li class="pricing-feature">Every companion template, tracker &amp; resource</li>
+            <li class="pricing-feature">Yours to keep &mdash; no subscription</li>
+          </ul>
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--navy">Get PRIME &mdash; $67</a>
+        </div>
+
+        <!-- Membership — featured -->
+        <div class="pricing-card pricing-card--featured fade-in delay-3">
+          <span class="pricing-badge">Core PRIME Programme</span>
+          <div class="pricing-subtitle">Accelerate</div>
+          <div class="pricing-title">Career Proof Membership</div>
+          <div class="pricing-price">$27 <sub>/ month</sub></div>
+          <div class="pricing-price-note">or $260/year</div>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li class="pricing-feature">Full PRIME content library</li>
+            <li class="pricing-feature">Templates, tools &amp; AI-enhanced resources</li>
+            <li class="pricing-feature">Live group coaching calls</li>
+            <li class="pricing-feature">Community accountability groups</li>
+            <li class="pricing-feature">Everything in the Free tier</li>
+          </ul>
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold">Join Now</a>
+        </div>
+
+        <!-- Cohort -->
+        <div class="pricing-card fade-in delay-4">
+          <span class="pricing-badge pricing-badge--navy">Quarterly Cohort</span>
+          <div class="pricing-subtitle">Grow together</div>
+          <div class="pricing-title">PRIME&trade; Cohort</div>
+          <div class="pricing-price">$375</div>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li class="pricing-feature">4 intakes per year (quarterly)</li>
+            <li class="pricing-feature">Group calls with personal feedback</li>
+            <li class="pricing-feature">Accountability partnerships</li>
+            <li class="pricing-feature">Done-with-you structured programme</li>
+            <li class="pricing-feature">Membership included</li>
+          </ul>
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--navy">Apply to Join</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="text-centre fade-in">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="section-heading">Common questions</h2>
+      </div>
+
+      <ul class="faq-list" role="list">
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Who is PRIME for?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            Anyone early in their career &mdash; recent graduates, those changing direction, or professionals wanting to level up. All sectors welcome.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            How is PRIME delivered?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            PRIME is delivered through the Skool platform &mdash; a structured, self-paced experience with live community calls, templates, and tools. You access everything through a single Skool membership.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            How long does PRIME take?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            Five modules you can work through at your own pace &mdash; most members finish in five to six weeks. It fits comfortably around full-time study or work.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What&rsquo;s the difference between the One-Off and the Membership?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            The <strong>PRIME One-Off ($67)</strong> gives you lifetime access to all five modules and every resource &mdash; no ongoing commitment. The <strong>$27/month Membership</strong> adds live group coaching calls and ongoing community accountability, plus everything that gets added to PRIME over time.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What&rsquo;s the difference between the Membership and the Cohort?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            The <strong>$27/month PRIME Membership</strong> gives you access to the full content library, templates, tools, AI-enhanced resources, live coaching calls, and the community &mdash; everything you need to build career momentum at your own pace. The <strong>PRIME Cohort ($375)</strong> is a quarterly group programme with a fixed intake &mdash; you go through a structured done-with-you experience alongside a small cohort, with personal feedback and accountability built in. Membership is included with the Cohort.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Is there a guarantee?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            Yes. If you&rsquo;re not satisfied after your first session, we offer a full refund. No questions asked.
+          </div></div></div>
+        </li>
+        <li class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Can I upgrade from free to paid later?
+            <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="faq-answer"><div><div class="faq-answer-inner">
+            Absolutely. Many members start free and upgrade when they&rsquo;re ready. There&rsquo;s no pressure and no time limit &mdash; you move at your own pace.
+          </div></div></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="final-cta">
+    <div class="container">
+      <div class="fade-in">
+        <h2 class="section-heading section-heading--white">Your career won&rsquo;t future-proof itself.</h2>
+        <p class="section-sub section-sub--white" style="margin: 0 auto 0;">Start today &mdash; free, or go all in with PRIME.</p>
+        <div class="final-cta-btns">
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--gold">Join PRIME &mdash; from $27/mo</a>
+          <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener" class="btn btn--white">Join Free Community</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://masteryourcareerpath.com">masteryourcareerpath.com</a>
+        <a href="https://masteryourcareerpath.com/privacy.html">Privacy Policy</a>
+        <a href="https://masteryourcareerpath.com/terms.html">Terms &amp; Conditions</a>
+        <a href="https://www.skool.com/master-your-career-path-3263/about" target="_blank" rel="noopener">Join on Skool</a>
+      </div>
+      <p>&copy; 2025 Master Your Career Path. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        document.querySelectorAll('.faq-question').forEach(b => b.setAttribute('aria-expanded', 'false'));
+        btn.setAttribute('aria-expanded', String(!expanded));
+      });
+    });
+  </script>
+</body>
+</html>
