@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<!-- Master Your Career Path | Social Wall — masteryourcareerpath.com/social -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="See Master Your Career Path in action — recent videos, reels and posts from Instagram, TikTok, Facebook, LinkedIn and YouTube, all in one place." />
+  <title>Social Wall | Master Your Career Path</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold:        #F5A623;
+      --gold-dark:   #D4891A;
+      --navy:        #1B3A8C;
+      --navy-dark:   #122970;
+      --white:       #FFFFFF;
+      --off-white:   #F8F8F8;
+      --light-grey:  #E8E8E8;
+      --text-dark:   #1A1A2E;
+      --text-mid:    #4A4A6A;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+
+      --radius:       10px;
+      --radius-lg:    16px;
+      --shadow-sm:    0 2px 8px rgba(27, 58, 140, 0.08);
+      --shadow-md:    0 6px 24px rgba(27, 58, 140, 0.12);
+      --transition:   0.25s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text-dark);
+      background: var(--off-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---- Top bar ---- */
+    .topbar {
+      background: var(--navy);
+      padding: 18px 0;
+    }
+    .topbar .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .topbar-logo { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--white); }
+    .topbar-logo span { color: var(--gold); }
+    .topbar-back {
+      font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; padding: 7px 16px;
+      transition: var(--transition);
+    }
+    .topbar-back:hover { background: rgba(255,255,255,0.1); border-color: var(--gold); color: var(--gold); }
+
+    /* ---- Hero ---- */
+    .hero {
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%);
+      padding: 64px 0 56px;
+      text-align: center;
+    }
+    .eyebrow {
+      display: inline-block; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-weight: 700; color: var(--white);
+      font-size: clamp(2rem, 5vw, 3rem); line-height: 1.15; margin-bottom: 18px;
+    }
+    .hero p {
+      color: rgba(255,255,255,0.78); max-width: 600px; margin: 0 auto; font-size: 1.05rem;
+    }
+    .platform-jump {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 32px;
+    }
+    .platform-jump a {
+      font-size: 0.85rem; font-weight: 600; color: var(--white);
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px; padding: 8px 18px; transition: var(--transition);
+    }
+    .platform-jump a:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+
+    /* ---- Sections ---- */
+    .platform-section { padding: 64px 0; border-bottom: 1px solid var(--light-grey); }
+    .platform-section:nth-child(odd) { background: var(--white); }
+    .platform-head {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      gap: 14px; margin-bottom: 32px;
+    }
+    .platform-title { display: flex; align-items: center; gap: 12px; }
+    .platform-icon {
+      width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .platform-icon svg { width: 20px; height: 20px; fill: var(--white); }
+    .platform-title h2 { font-family: var(--font-display); font-size: 1.5rem; color: var(--navy); }
+    .platform-follow {
+      font-size: 0.82rem; font-weight: 600; color: var(--navy);
+      border: 1.5px solid var(--navy); border-radius: 999px; padding: 8px 18px;
+      transition: var(--transition); white-space: nowrap;
+    }
+    .platform-follow:hover { background: var(--navy); color: var(--white); }
+
+    .embed-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+      align-items: start;
+    }
+    .embed-grid.embed-grid--wide { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); }
+    .embed-cell { display: flex; justify-content: center; }
+    .embed-cell iframe, .embed-cell blockquote { width: 100%; max-width: 100%; }
+
+    .coming-soon {
+      grid-column: 1 / -1;
+      background: var(--off-white); border: 1.5px dashed var(--light-grey); border-radius: var(--radius-lg);
+      padding: 40px 24px; text-align: center; color: var(--text-mid);
+    }
+    .coming-soon strong { display: block; color: var(--navy); font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 8px; }
+    .coming-soon a { color: var(--navy); font-weight: 600; text-decoration: underline; }
+
+    /* ---- CTA ---- */
+    .wall-cta { padding: 72px 0; text-align: center; background: var(--navy); }
+    .wall-cta h2 { font-family: var(--font-display); color: var(--white); font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 14px; }
+    .wall-cta p { color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto 28px; }
+    .btn {
+      display: inline-block; font-weight: 600; font-size: 0.95rem; padding: 14px 30px;
+      border-radius: 999px; transition: var(--transition);
+    }
+    .btn--gold { background: var(--gold); color: var(--navy-dark); }
+    .btn--gold:hover { background: var(--gold-dark); }
+
+    .footnote { padding: 28px 0; text-align: center; font-size: 0.8rem; color: var(--text-mid); }
+    .footnote a { color: var(--navy); font-weight: 600; }
+
+    @media (max-width: 640px) {
+      .topbar-logo { font-size: 0.9rem; }
+      .platform-head { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       TOP BAR
+       ============================================================ -->
+  <div class="topbar">
+    <div class="container">
+      <a href="/" class="topbar-logo"><span>M</span>aster Your Career Path</a>
+      <a href="/#hero" class="topbar-back">&larr; Back to site</a>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Social Wall</span>
+      <h1>What we've been posting</h1>
+      <p>A running feed of our recent videos, reels and posts &mdash; pulled straight from Instagram, TikTok, Facebook, LinkedIn and YouTube, so you don't have to go hunting for it.</p>
+      <div class="platform-jump">
+        <a href="#youtube">YouTube</a>
+        <a href="#facebook">Facebook</a>
+        <a href="#tiktok">TikTok</a>
+        <a href="#instagram">Instagram</a>
+        <a href="#linkedin">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       YOUTUBE — native uploads embed, fully automatic
+       ============================================================ -->
+  <section class="platform-section" id="youtube">
+    <div class="container">
+      <div class="platform-head">
+        <div class="platform-title">
+          <div class="platform-icon" style="background:#FF0000;">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <h2>YouTube</h2>
+        </div>
+        <a class="platform-follow" href="https://www.youtube.com/@MasterYourCareerPath-y6t" target="_blank" rel="noopener">Subscribe on YouTube</a>
+      </div>
+      <div class="embed-grid embed-grid--wide">
+        <div class="embed-cell" style="grid-column:1/-1;">
+          <!-- Playlist embed updates itself the moment a new video is uploaded to this playlist — nothing to maintain. -->
+          <iframe width="100%" height="480" src="https://www.youtube.com/embed/videoseries?list=PLcC-7LqgDPuYvDIizsNn5rdSzmcDS6eVu" title="Master Your Career Path — YouTube uploads" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius:var(--radius-lg); box-shadow:var(--shadow-md);"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FACEBOOK — native Page Plugin, fully automatic
+       ============================================================ -->
+  <section class="platform-section" id="facebook">
+    <div class="container">
+      <div class="platform-head">
+        <div class="platform-title">
+          <div class="platform-icon" style="background:#1877F2;">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </div>
+          <h2>Facebook</h2>
+        </div>
+        <a class="platform-follow" href="https://www.facebook.com/profile.php?id=61567475866297" target="_blank" rel="noopener">Follow on Facebook</a>
+      </div>
+      <div class="embed-grid embed-grid--wide">
+        <div class="embed-cell" style="grid-column:1/-1; justify-content:center;">
+          <!-- Meta's own Page Plugin — shows the live timeline, updates itself, no token to maintain. -->
+          <iframe
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61567475866297&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+            width="500" height="650" style="border:none;overflow:hidden;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);max-width:100%;"
+            scrolling="no" frameborder="0" allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TIKTOK — curated via oEmbed. Seeded from real published posts.
+       To add a new post: paste its URL into the TIKTOK_POSTS array below.
+       ============================================================ -->
+  <section class="platform-section" id="tiktok">
+    <div class="container">
+      <div class="platform-head">
+        <div class="platform-title">
+          <div class="platform-icon" style="background:#000000;">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.77 1.52V6.76a4.85 4.85 0 01-1-.07z"/></svg>
+          </div>
+          <h2>TikTok</h2>
+        </div>
+        <a class="platform-follow" href="https://www.tiktok.com/@masteryourcareerpath" target="_blank" rel="noopener">Follow on TikTok</a>
+      </div>
+      <div class="embed-grid" id="tiktok-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INSTAGRAM — curated. Instagram has no free "latest posts" feed,
+       so this is topped up by hand. To add a post: paste its URL
+       (from the Share > Embed button on the post) into INSTAGRAM_POSTS.
+       ============================================================ -->
+  <section class="platform-section" id="instagram">
+    <div class="container">
+      <div class="platform-head">
+        <div class="platform-title">
+          <div class="platform-icon" style="background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF,#515BD4);">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
+          <h2>Instagram</h2>
+        </div>
+        <a class="platform-follow" href="https://www.instagram.com/masteryourcareerpath/" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
+      <div class="embed-grid" id="instagram-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LINKEDIN — curated. LinkedIn has no public feed widget at all,
+       so posts are added one at a time. To add a post: open it on
+       LinkedIn, click the "..." menu > Embed this post, and paste the
+       urn (the "urn:li:share:xxxx" or "urn:li:ugcPost:xxxx" part of
+       the embed code) into LINKEDIN_POSTS.
+       ============================================================ -->
+  <section class="platform-section" id="linkedin">
+    <div class="container">
+      <div class="platform-head">
+        <div class="platform-title">
+          <div class="platform-icon" style="background:#0A66C2;">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </div>
+          <h2>LinkedIn</h2>
+        </div>
+        <a class="platform-follow" href="https://www.linkedin.com/company/master-your-career-path/" target="_blank" rel="noopener">Follow on LinkedIn</a>
+      </div>
+      <div class="embed-grid" id="linkedin-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA
+       ============================================================ -->
+  <section class="wall-cta">
+    <div class="container">
+      <h2>Want career tips like these in your inbox too?</h2>
+      <p>Join the free community for more of what you see here, plus the stuff we don't post publicly.</p>
+      <a href="https://www.skool.com/master-your-career-path-3263/about" class="btn btn--gold" target="_blank" rel="noopener">Join Free Community</a>
+    </div>
+  </section>
+
+  <div class="footnote">
+    <div class="container">
+      &copy; 2026 Master Your Career Path &nbsp;|&nbsp; <a href="/">Back to homepage</a>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       DATA + RENDER
+       ============================================================ -->
+  <script>
+    'use strict';
+
+    /* TikTok — seeded from actual published posts (masteryourcareerpath account).
+       Add new URLs to the TOP of this array as you post. */
+    var TIKTOK_POSTS = [
+      'https://www.tiktok.com/@masteryourcareerpath/video/7680102543904525590',
+      'https://www.tiktok.com/@masteryourcareerpath/video/7673051945279425814',
+      'https://www.tiktok.com/@masteryourcareerpath/video/7672680853134216450',
+      'https://www.tiktok.com/@masteryourcareerpath/video/7672309747462327574',
+      'https://www.tiktok.com/@masteryourcareerpath/video/7671196495034486038',
+      'https://www.tiktok.com/@masteryourcareerpath/video/7670825427119672598'
+    ];
+
+    /* Instagram — no automatic source available; add post URLs by hand
+       (e.g. https://www.instagram.com/reel/XXXXXXXXX/). */
+    var INSTAGRAM_POSTS = [];
+
+    /* LinkedIn — no automatic source available; add each post's urn
+       (from LinkedIn's "Embed this post" option), e.g. "urn:li:share:XXXXXXXXXXXXXXXXXX". */
+    var LINKEDIN_POSTS = [];
+
+    function renderComingSoon(gridId, label, followUrl) {
+      var grid = document.getElementById(gridId);
+      grid.innerHTML = '<div class="coming-soon"><strong>More ' + label + ' posts coming soon</strong>' +
+        'This section is topped up by hand — in the meantime, catch the latest on ' +
+        '<a href="' + followUrl + '" target="_blank" rel="noopener">' + label + '</a>.</div>';
+    }
+
+    function tiktokIdFromUrl(url) {
+      var m = url.match(/\/video\/(\d+)/);
+      return m ? m[1] : '';
+    }
+
+    function renderTikTok() {
+      var grid = document.getElementById('tiktok-grid');
+      if (!TIKTOK_POSTS.length) {
+        renderComingSoon('tiktok-grid', 'TikTok', 'https://www.tiktok.com/@masteryourcareerpath');
+        return;
+      }
+      TIKTOK_POSTS.forEach(function (url) {
+        var cell = document.createElement('div');
+        cell.className = 'embed-cell';
+        cell.innerHTML = '<blockquote class="tiktok-embed" cite="' + url + '" data-video-id="' + tiktokIdFromUrl(url) + '" style="max-width:325px;min-width:280px;"><section></section></blockquote>';
+        grid.appendChild(cell);
+      });
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.tiktok.com/embed.js';
+      document.body.appendChild(s);
+    }
+
+    function renderInstagram() {
+      var grid = document.getElementById('instagram-grid');
+      if (!INSTAGRAM_POSTS.length) {
+        renderComingSoon('instagram-grid', 'Instagram', 'https://www.instagram.com/masteryourcareerpath/');
+        return;
+      }
+      INSTAGRAM_POSTS.forEach(function (url) {
+        var cell = document.createElement('div');
+        cell.className = 'embed-cell';
+        cell.innerHTML = '<blockquote class="instagram-media" data-instgrm-permalink="' + url + '" data-instgrm-version="14" style="width:100%;"></blockquote>';
+        grid.appendChild(cell);
+      });
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.instagram.com/embed.js';
+      document.body.appendChild(s);
+    }
+
+    function renderLinkedIn() {
+      var grid = document.getElementById('linkedin-grid');
+      if (!LINKEDIN_POSTS.length) {
+        renderComingSoon('linkedin-grid', 'LinkedIn', 'https://www.linkedin.com/company/master-your-career-path/');
+        return;
+      }
+      LINKEDIN_POSTS.forEach(function (urn) {
+        var cell = document.createElement('div');
+        cell.className = 'embed-cell';
+        cell.innerHTML = '<iframe src="https://www.linkedin.com/embed/feed/update/' + urn + '" height="600" width="100%" frameborder="0" allowfullscreen="" title="Embedded LinkedIn post" style="border-radius:var(--radius-lg);box-shadow:var(--shadow-md);"></iframe>';
+        grid.appendChild(cell);
+      });
+    }
+
+    renderTikTok();
+    renderInstagram();
+    renderLinkedIn();
+  </script>
+
+</body>
+</html>
