@@ -124,6 +124,12 @@
     .coming-soon strong { display: block; color: var(--navy); font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 8px; }
     .coming-soon a { color: var(--navy); font-weight: 600; text-decoration: underline; }
 
+    .embed-fallback {
+      grid-column: 1 / -1; text-align: center; font-size: 0.85rem; color: var(--text-mid);
+      margin-top: 16px;
+    }
+    .embed-fallback a { color: var(--navy); font-weight: 600; text-decoration: underline; }
+
     /* ---- CTA ---- */
     .wall-cta { padding: 72px 0; text-align: center; background: var(--navy); }
     .wall-cta h2 { font-family: var(--font-display); color: var(--white); font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 14px; }
@@ -220,6 +226,7 @@
             scrolling="no" frameborder="0" allowfullscreen="true"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
         </div>
+        <p class="embed-fallback">Box looking empty? Some browsers block Facebook's embed by default &mdash; <a href="https://www.facebook.com/profile.php?id=61567475866297" target="_blank" rel="noopener">view our Page on Facebook</a> instead.</p>
       </div>
     </div>
   </section>
@@ -260,6 +267,7 @@
         <a class="platform-follow" href="https://www.instagram.com/masteryourcareerpath/" target="_blank" rel="noopener">Follow on Instagram</a>
       </div>
       <div class="embed-grid" id="instagram-grid"></div>
+      <p class="embed-fallback">Posts not loading? Some browsers block Instagram's embed by default &mdash; <a href="https://www.instagram.com/masteryourcareerpath/" target="_blank" rel="noopener">view our profile on Instagram</a> instead.</p>
     </div>
   </section>
 
@@ -335,7 +343,6 @@
     var LINKEDIN_POSTS = [
       'urn:li:ugcPost:7500084998448844800',
       'urn:li:share:7500085052765093889',
-      'urn:li:share:7490662883031396352',
       'urn:li:share:7490300494523920384',
       'urn:li:share:7485951840740802561'
     ];
