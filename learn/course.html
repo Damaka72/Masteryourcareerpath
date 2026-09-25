@@ -106,8 +106,45 @@
       `;
     }
 
+    const SUPABASE_FUNCTIONS_URL = 'https://xzxqdshpqmjrggvhgzrp.supabase.co/functions/v1';
+    const STRIPE_COURSE_SLUGS = ['prime']; // only courses with a Stripe price wired up
+
+    function checkoutBannerHtml() {
+      const params = new URLSearchParams(window.location.search);
+      const checkout = params.get('checkout');
+      if (checkout === 'success') {
+        return `<div class="alert alert--success visible" style="margin-bottom:20px;">Payment received — activating your access now. If the course doesn't unlock within a minute, refresh this page.</div>`;
+      }
+      if (checkout === 'cancelled') {
+        return `<div class="alert alert--error visible" style="margin-bottom:20px;">Checkout was cancelled — no payment was taken.</div>`;
+      }
+      return '';
+    }
+
+    async function startCheckout(button) {
+      button.disabled = true;
+      button.textContent = 'Redirecting to checkout…';
+      try {
+        const session = await mycpGetSession();
+        const res = await fetch(`${SUPABASE_FUNCTIONS_URL}/create-checkout-session`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
+        const body = await res.json();
+        if (!res.ok || !body.url) throw new Error(body.error || 'Could not start checkout');
+        window.location.href = body.url;
+      } catch (err) {
+        console.error('startCheckout', err);
+        button.disabled = false;
+        button.textContent = 'Subscribe — $27/mo';
+        alert('Something went wrong starting checkout. Please try again in a moment.');
+      }
+    }
+
     function renderNotEnrolled(course, session) {
+      const canSubscribe = session && STRIPE_COURSE_SLUGS.includes(course.slug);
       document.getElementById('content').innerHTML = `
+        ${checkoutBannerHtml()}
         <div class="course-hero">
           <p class="course-hero__subtitle">${escapeHtml(course.subtitle || '')}</p>
           <h1 class="course-hero__title">${escapeHtml(course.title)}</h1>
@@ -116,14 +153,21 @@
         <div class="not-enrolled-card">
           <h2 class="course-hero__title" style="font-size:1.15rem;">You're not enrolled yet</h2>
           <p>${session
-            ? "Enrolment opens soon — get in touch to get access to this course."
+            ? (canSubscribe
+                ? "Subscribe to PRIME Membership to unlock this course."
+                : "Enrolment opens soon — get in touch to get access to this course.")
             : 'Log in or create an account, then get in touch to get access to this course.'}</p>
+          ${canSubscribe ? `<div style="margin-top:20px;">
+            <button class="btn btn--gold" style="width:auto;" id="subscribe-btn">Subscribe — $27/mo</button>
+          </div>` : ''}
           ${!session ? `<div style="margin-top:20px; display:flex; gap:12px; justify-content:center;">
             <a href="/learn/login?redirect=${encodeURIComponent(window.location.pathname)}" class="btn btn--navy-outline" style="width:auto;">Log in</a>
             <a href="/learn/signup" class="btn btn--gold" style="width:auto;">Sign up</a>
           </div>` : ''}
         </div>
       `;
+      const subscribeBtn = document.getElementById('subscribe-btn');
+      if (subscribeBtn) subscribeBtn.addEventListener('click', () => startCheckout(subscribeBtn));
     }
 
     function renderClassroom(course, modules, progressLessonIds) {
