@@ -41,6 +41,18 @@ async function mycpGetProfile() {
   return data;
 }
 
+// Starts a Stripe Checkout subscription for the given course and redirects
+// the browser to it. Throws with a user-facing message on failure.
+async function mycpStartCheckout(courseSlug) {
+  const { data, error } = await supabaseClient.functions.invoke('create-checkout-session', {
+    body: { courseSlug },
+  });
+  if (error || !data?.url) {
+    throw new Error(data?.error || error?.message || 'Could not start checkout.');
+  }
+  window.location.href = data.url;
+}
+
 async function mycpSignOut() {
   await supabaseClient.auth.signOut();
   window.location.href = '/learn/login';

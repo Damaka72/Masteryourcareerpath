@@ -107,6 +107,10 @@
     }
 
     function renderNotEnrolled(course, session) {
+      const priceLabel = course.price_pence
+        ? `$${(course.price_pence / 100).toFixed(2)}/month`
+        : null;
+
       document.getElementById('content').innerHTML = `
         <div class="course-hero">
           <p class="course-hero__subtitle">${escapeHtml(course.subtitle || '')}</p>
@@ -115,15 +119,36 @@
         </div>
         <div class="not-enrolled-card">
           <h2 class="course-hero__title" style="font-size:1.15rem;">You're not enrolled yet</h2>
-          <p>${session
-            ? "Enrolment opens soon — get in touch to get access to this course."
-            : 'Log in or create an account, then get in touch to get access to this course.'}</p>
-          ${!session ? `<div style="margin-top:20px; display:flex; gap:12px; justify-content:center;">
-            <a href="/learn/login?redirect=${encodeURIComponent(window.location.pathname)}" class="btn btn--navy-outline" style="width:auto;">Log in</a>
-            <a href="/learn/signup" class="btn btn--gold" style="width:auto;">Sign up</a>
-          </div>` : ''}
+          <div class="alert" id="checkout-alert"></div>
+          ${session
+            ? (priceLabel
+                ? `<p>Subscribe for ${priceLabel} to get full access.</p>
+                   <button class="btn btn--gold" id="subscribe-btn" style="width:auto; margin-top:16px;">Subscribe — ${priceLabel}</button>`
+                : `<p>This course isn't available for purchase yet — get in touch to get access.</p>`)
+            : `<p>Log in or create an account to subscribe.</p>
+               <div style="margin-top:20px; display:flex; gap:12px; justify-content:center;">
+                 <a href="/learn/login?redirect=${encodeURIComponent(window.location.pathname)}" class="btn btn--navy-outline" style="width:auto;">Log in</a>
+                 <a href="/learn/signup" class="btn btn--gold" style="width:auto;">Sign up</a>
+               </div>`}
         </div>
       `;
+
+      const subscribeBtn = document.getElementById('subscribe-btn');
+      if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', async () => {
+          const alertEl = document.getElementById('checkout-alert');
+          mycpHideAlert(alertEl);
+          subscribeBtn.disabled = true;
+          subscribeBtn.textContent = 'Redirecting to checkout…';
+          try {
+            await mycpStartCheckout(course.slug);
+          } catch (err) {
+            mycpShowAlert(alertEl, err.message, 'error');
+            subscribeBtn.disabled = false;
+            subscribeBtn.textContent = `Subscribe — ${priceLabel}`;
+          }
+        });
+      }
     }
 
     function renderClassroom(course, modules, progressLessonIds) {
@@ -176,6 +201,21 @@
       document.title = `${outline.course.title} | Master Your Career Path`;
 
       if (outline.modules.length === 0) {
+        const checkoutState = new URLSearchParams(window.location.search).get('checkout');
+        if (checkoutState === 'success' && !window.location.search.includes('retried')) {
+          document.getElementById('content').innerHTML = `
+            <div class="not-enrolled-card">
+              <h2 class="course-hero__title" style="font-size:1.15rem;">Payment received</h2>
+              <p>Activating your access — this takes a few seconds…</p>
+            </div>
+          `;
+          setTimeout(() => {
+            const url = new URL(window.location.href);
+            url.searchParams.set('retried', '1');
+            window.location.href = url.toString();
+          }, 3000);
+          return;
+        }
         renderNotEnrolled(outline.course, outline.session);
         return;
       }

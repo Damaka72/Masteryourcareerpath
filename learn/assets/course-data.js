@@ -36,7 +36,7 @@ function mycpParseLessonPath() {
 async function mycpLoadCourseOutline(courseSlug) {
   const { data: course, error: courseErr } = await supabaseClient
     .from('courses')
-    .select('id, slug, title, subtitle, description, is_published')
+    .select('id, slug, title, subtitle, description, is_published, price_pence')
     .eq('slug', courseSlug)
     .maybeSingle();
 
