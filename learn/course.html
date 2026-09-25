@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Course | Master Your Career Path</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/learn/assets/learn.css" />
+  <style>
+    .learn-main { flex: 1; padding: 48px 0 96px; }
+    .course-hero { margin-bottom: 36px; }
+    .course-hero__title {
+      font-family: var(--font-display); font-size: clamp(1.7rem, 4vw, 2.4rem);
+      font-weight: 700; color: var(--navy); margin-bottom: 10px;
+    }
+    .course-hero__subtitle { font-size: 1rem; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+    .course-hero__desc { font-size: 0.95rem; color: var(--text-mid); max-width: 680px; }
+
+    .progress-wrap { margin: 24px 0 36px; max-width: 480px; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-mid); margin-bottom: 6px; }
+    .progress-track { height: 8px; border-radius: 20px; background: var(--light-grey); overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--gold); border-radius: 20px; transition: width 0.4s ease; }
+
+    .not-enrolled-card {
+      background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+      padding: 36px; text-align: center; max-width: 520px;
+    }
+    .not-enrolled-card p { color: var(--text-mid); font-size: 0.92rem; margin-top: 10px; }
+
+    .module-block { margin-bottom: 32px; }
+    .module-block__title {
+      font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 4px;
+    }
+    .module-block__summary { font-size: 0.86rem; color: var(--text-mid); margin-bottom: 14px; max-width: 640px; }
+    .lesson-list { display: flex; flex-direction: column; gap: 8px; }
+    .lesson-row {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); padding: 14px 18px;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .lesson-row:hover { box-shadow: var(--shadow-md); transform: translateX(2px); }
+    .lesson-row__check {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      border: 2px solid var(--light-grey); display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: var(--white);
+    }
+    .lesson-row__check.done { background: var(--gold); border-color: var(--gold); }
+    .lesson-row__title { font-size: 0.92rem; font-weight: 500; color: var(--text-dark); flex: 1; }
+  </style>
+</head>
+<body>
+  <header class="learn-topbar">
+    <div class="container">
+      <a href="/learn/" class="learn-logo"><span>M</span>aster Your Career Path</a>
+      <div class="learn-nav-right" id="nav-right"></div>
+    </div>
+  </header>
+
+  <main class="learn-main">
+    <div class="container">
+      <div id="content"><p class="learn-loading">Loading course…</p></div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="/learn/assets/supabase-client.js"></script>
+  <script src="/learn/assets/course-data.js"></script>
+  <script>
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str ?? '';
+      return div.innerHTML;
+    }
+
+    function renderNav(session, profile) {
+      const navRight = document.getElementById('nav-right');
+      if (session) {
+        navRight.innerHTML = `
+          <a href="/learn/">Courses</a>
+          <a href="/learn/account">${escapeHtml(profile?.full_name || session.user.email)}</a>
+          <a href="#" id="signout-link">Sign out</a>
+        `;
+        document.getElementById('signout-link').addEventListener('click', (e) => {
+          e.preventDefault();
+          mycpSignOut();
+        });
+      } else {
+        navRight.innerHTML = `
+          <a href="/learn/login">Log in</a>
+          <a href="/learn/signup" class="btn btn--gold" style="width:auto;padding:8px 18px;">Sign up</a>
+        `;
+      }
+    }
+
+    function renderNotFound() {
+      document.getElementById('content').innerHTML = `
+        <div class="not-enrolled-card">
+          <h1 class="course-hero__title" style="font-size:1.3rem;">Course not found</h1>
+          <p><a href="/learn/">Back to courses</a></p>
+        </div>
+      `;
+    }
+
+    function renderNotEnrolled(course, session) {
+      document.getElementById('content').innerHTML = `
+        <div class="course-hero">
+          <p class="course-hero__subtitle">${escapeHtml(course.subtitle || '')}</p>
+          <h1 class="course-hero__title">${escapeHtml(course.title)}</h1>
+          <p class="course-hero__desc">${escapeHtml(course.description || '')}</p>
+        </div>
+        <div class="not-enrolled-card">
+          <h2 class="course-hero__title" style="font-size:1.15rem;">You're not enrolled yet</h2>
+          <p>${session
+            ? "Enrolment opens soon — get in touch to get access to this course."
+            : 'Log in or create an account, then get in touch to get access to this course.'}</p>
+          ${!session ? `<div style="margin-top:20px; display:flex; gap:12px; justify-content:center;">
+            <a href="/learn/login?redirect=${encodeURIComponent(window.location.pathname)}" class="btn btn--navy-outline" style="width:auto;">Log in</a>
+            <a href="/learn/signup" class="btn btn--gold" style="width:auto;">Sign up</a>
+          </div>` : ''}
+        </div>
+      `;
+    }
+
+    function renderClassroom(course, modules, progressLessonIds) {
+      const flat = mycpFlattenLessons(modules);
+      const total = flat.length;
+      const done = flat.filter((l) => progressLessonIds.has(l.id)).length;
+      const pct = total ? Math.round((done / total) * 100) : 0;
+
+      const modulesHtml = modules.map((m) => `
+        <div class="module-block">
+          <h2 class="module-block__title">${escapeHtml(m.title)}</h2>
+          <p class="module-block__summary">${escapeHtml(m.summary || '')}</p>
+          <div class="lesson-list">
+            ${(m.lessons || []).map((l) => {
+              const isDone = progressLessonIds.has(l.id);
+              return `
+                <a class="lesson-row" href="${mycpLessonUrl(course.slug, m.slug, l.slug)}">
+                  <span class="lesson-row__check ${isDone ? 'done' : ''}">${isDone ? '✓' : ''}</span>
+                  <span class="lesson-row__title">${escapeHtml(l.title)}</span>
+                </a>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('content').innerHTML = `
+        <div class="course-hero">
+          <p class="course-hero__subtitle">${escapeHtml(course.subtitle || '')}</p>
+          <h1 class="course-hero__title">${escapeHtml(course.title)}</h1>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Your progress</span><span>${done} / ${total} lessons</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
+        </div>
+        ${modulesHtml}
+      `;
+    }
+
+    (async () => {
+      const courseSlug = mycpParseCourseSlug();
+      if (!courseSlug) { renderNotFound(); return; }
+
+      const outline = await mycpLoadCourseOutline(courseSlug);
+      const profile = outline.session ? await mycpGetProfile() : null;
+      renderNav(outline.session, profile);
+
+      if (!outline.course) { renderNotFound(); return; }
+
+      document.title = `${outline.course.title} | Master Your Career Path`;
+
+      if (outline.modules.length === 0) {
+        renderNotEnrolled(outline.course, outline.session);
+        return;
+      }
+
+      renderClassroom(outline.course, outline.modules, outline.progressLessonIds);
+    })();
+  </script>
+</body>
+</html>

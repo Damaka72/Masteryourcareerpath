@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Your Account | Master Your Career Path</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/learn/assets/learn.css" />
+  <style>
+    .learn-main { flex: 1; padding: 56px 0 96px; }
+    .account-card {
+      max-width: 480px; background: var(--white); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm); padding: 32px;
+    }
+    .account-title { font-family: var(--font-display); font-size: 1.5rem; color: var(--navy); margin-bottom: 24px; }
+    .account-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--light-grey); font-size: 0.92rem; }
+    .account-row:last-of-type { border-bottom: none; }
+    .account-row span:first-child { color: var(--text-mid); }
+    .account-row span:last-child { font-weight: 600; color: var(--text-dark); }
+    .account-card .btn { width: auto; margin-top: 24px; padding: 10px 22px; }
+  </style>
+</head>
+<body>
+  <header class="learn-topbar">
+    <div class="container">
+      <a href="/learn/" class="learn-logo"><span>M</span>aster Your Career Path</a>
+      <div class="learn-nav-right">
+        <a href="/learn/">Courses</a>
+        <a href="#" id="signout-link">Sign out</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="learn-main">
+    <div class="container">
+      <div class="account-card">
+        <h1 class="account-title">Your account</h1>
+        <div id="account-body">
+          <p class="learn-loading">Loading…</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="/learn/assets/supabase-client.js"></script>
+  <script>
+    document.getElementById('signout-link').addEventListener('click', (e) => {
+      e.preventDefault();
+      mycpSignOut();
+    });
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str ?? '';
+      return div.innerHTML;
+    }
+
+    (async () => {
+      const session = await mycpRequireAuth();
+      if (!session) return;
+
+      const profile = await mycpGetProfile();
+      const body = document.getElementById('account-body');
+      body.innerHTML = `
+        <div class="account-row"><span>Name</span><span>${escapeHtml(profile?.full_name || '—')}</span></div>
+        <div class="account-row"><span>Email</span><span>${escapeHtml(session.user.email)}</span></div>
+        <div class="account-row"><span>Member since</span><span>${new Date(profile?.created_at || session.user.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span></div>
+      `;
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Your Master Your Career Path classroom — PRIME and OPERATE courses." />
+  <title>Classroom | Master Your Career Path</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/learn/assets/learn.css" />
+  <style>
+    .learn-main { flex: 1; padding: 56px 0 96px; }
+    .learn-header { margin-bottom: 40px; }
+    .learn-eyebrow {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+    }
+    .learn-title {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700; color: var(--navy);
+    }
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .course-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 28px;
+      transition: box-shadow var(--transition), transform var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .course-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .course-card__title {
+      font-family: var(--font-display); font-size: 1.25rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 8px;
+    }
+    .course-card__subtitle { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 20px; flex: 1; }
+    .course-card__status {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px; margin-bottom: 16px; width: fit-content;
+    }
+    .status--enrolled { background: #EAF6EC; color: #1E7B34; }
+    .status--not-enrolled { background: var(--off-white); color: var(--text-mid); }
+    .course-card .btn { width: auto; padding: 10px 20px; font-size: 0.88rem; }
+  </style>
+</head>
+<body>
+  <header class="learn-topbar">
+    <div class="container">
+      <a href="/" class="learn-logo"><span>M</span>aster Your Career Path</a>
+      <div class="learn-nav-right" id="nav-right">
+        <!-- populated by script -->
+      </div>
+    </div>
+  </header>
+
+  <main class="learn-main">
+    <div class="container">
+      <div class="learn-header">
+        <p class="learn-eyebrow">Classroom</p>
+        <h1 class="learn-title" id="greeting">Your courses</h1>
+      </div>
+
+      <div id="course-list">
+        <p class="learn-loading">Loading courses…</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="/learn/assets/supabase-client.js"></script>
+  <script>
+    const navRight = document.getElementById('nav-right');
+    const greeting = document.getElementById('greeting');
+    const listEl = document.getElementById('course-list');
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str ?? '';
+      return div.innerHTML;
+    }
+
+    async function renderNav(session, profile) {
+      if (session) {
+        navRight.innerHTML = `
+          <a href="/learn/account">${escapeHtml(profile?.full_name || session.user.email)}</a>
+          <a href="#" id="signout-link">Sign out</a>
+        `;
+        document.getElementById('signout-link').addEventListener('click', (e) => {
+          e.preventDefault();
+          mycpSignOut();
+        });
+      } else {
+        navRight.innerHTML = `
+          <a href="/learn/login">Log in</a>
+          <a href="/learn/signup" class="btn btn--gold" style="width:auto;padding:8px 18px;">Sign up</a>
+        `;
+      }
+    }
+
+    async function loadEnrolledCourseIds(session) {
+      if (!session) return new Set();
+      const { data, error } = await supabaseClient
+        .from('enrolments')
+        .select('course_id')
+        .eq('user_id', session.user.id)
+        .eq('status', 'active');
+      if (error) { console.error(error); return new Set(); }
+      return new Set(data.map((row) => row.course_id));
+    }
+
+    async function loadCourses() {
+      const session = await mycpGetSession();
+      const profile = session ? await mycpGetProfile() : null;
+      await renderNav(session, profile);
+
+      greeting.textContent = session
+        ? `Welcome back${profile?.full_name ? ', ' + profile.full_name.split(' ')[0] : ''}`
+        : 'Available courses';
+
+      const [{ data: courses, error }, enrolledIds] = await Promise.all([
+        supabaseClient
+          .from('courses')
+          .select('id, slug, title, subtitle, is_published, sort_order')
+          .eq('is_published', true)
+          .order('sort_order', { ascending: true }),
+        loadEnrolledCourseIds(session),
+      ]);
+
+      if (error) {
+        listEl.innerHTML = `<p class="learn-empty">Could not load courses right now. Please try again shortly.</p>`;
+        console.error(error);
+        return;
+      }
+
+      if (!courses || courses.length === 0) {
+        listEl.innerHTML = `<p class="learn-empty">No courses are published yet — check back soon.</p>`;
+        return;
+      }
+
+      listEl.innerHTML = `<div class="course-grid">${courses.map((course) => {
+        const enrolled = enrolledIds.has(course.id);
+        return `
+          <div class="course-card">
+            <span class="course-card__status ${enrolled ? 'status--enrolled' : 'status--not-enrolled'}">
+              ${enrolled ? 'Enrolled' : 'Not enrolled'}
+            </span>
+            <h2 class="course-card__title">${escapeHtml(course.title)}</h2>
+            <p class="course-card__subtitle">${escapeHtml(course.subtitle || '')}</p>
+            ${enrolled
+              ? `<a href="/learn/${escapeHtml(course.slug)}" class="btn btn--gold">Continue course</a>`
+              : `<a href="/learn/${escapeHtml(course.slug)}" class="btn btn--navy-outline">View course</a>`}
+          </div>
+        `;
+      }).join('')}</div>`;
+    }
+
+    loadCourses();
+  </script>
+</body>
+</html>
