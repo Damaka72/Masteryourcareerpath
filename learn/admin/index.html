@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Admin | Master Your Career Path</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/learn/assets/learn.css" />
+  <style>
+    .learn-main { flex: 1; padding: 48px 0 96px; }
+    .admin-title {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+      font-weight: 700; color: var(--navy); margin-bottom: 32px;
+    }
+    .admin-section {
+      background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+      padding: 28px; margin-bottom: 32px;
+    }
+    .admin-section h2 {
+      font-family: var(--font-display); font-size: 1.15rem; color: var(--navy); margin-bottom: 18px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { text-align: left; color: var(--text-mid); font-weight: 600; padding: 8px 10px; border-bottom: 2px solid var(--light-grey); }
+    td { padding: 10px; border-bottom: 1px solid var(--light-grey); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    input[type="text"], input[type="email"], input[type="number"], select {
+      padding: 8px 10px; border: 1.5px solid var(--light-grey); border-radius: 6px;
+      font-family: var(--font-body); font-size: 0.86rem; width: 100%;
+    }
+    .inline-btn {
+      width: auto; padding: 7px 14px; font-size: 0.82rem; border-radius: 6px;
+    }
+    .status-msg { font-size: 0.85rem; margin-top: 10px; min-height: 1.2em; }
+    .status-msg.error { color: #B3261E; }
+    .status-msg.success { color: #1E7B34; }
+    .grant-form { display: grid; grid-template-columns: 2fr 1.5fr auto; gap: 10px; align-items: end; margin-bottom: 20px; }
+    .grant-form label { display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 4px; color: var(--text-dark); }
+    @media (max-width: 700px) { .grant-form { grid-template-columns: 1fr; } }
+    .denied { text-align: center; padding: 80px 24px; color: var(--text-mid); }
+  </style>
+</head>
+<body>
+  <header class="learn-topbar">
+    <div class="container">
+      <a href="/learn/" class="learn-logo"><span>M</span>aster Your Career Path</a>
+      <div class="learn-nav-right" id="nav-right"></div>
+    </div>
+  </header>
+
+  <main class="learn-main">
+    <div class="container" id="content">
+      <p class="learn-loading">Loading…</p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="/learn/assets/supabase-client.js"></script>
+  <script>
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str ?? '';
+      return div.innerHTML;
+    }
+    function formatPrice(pence) {
+      return pence ? `£${(pence / 100).toFixed(2)}` : 'Free';
+    }
+
+    function renderNav(session, profile) {
+      const navRight = document.getElementById('nav-right');
+      navRight.innerHTML = `
+        <a href="/learn/">Courses</a>
+        <a href="/learn/account">${escapeHtml(profile?.full_name || session.user.email)}</a>
+        <a href="#" id="signout-link">Sign out</a>
+      `;
+      document.getElementById('signout-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        mycpSignOut();
+      });
+    }
+
+    async function loadCourses() {
+      const { data, error } = await supabaseClient
+        .from('courses')
+        .select('id, slug, title, is_published, price_pence, sort_order')
+        .order('sort_order', { ascending: true });
+      if (error) { console.error(error); return []; }
+
+      const withCounts = await Promise.all(data.map(async (c) => {
+        const { count } = await supabaseClient
+          .from('enrolments')
+          .select('id', { count: 'exact', head: true })
+          .eq('course_id', c.id)
+          .eq('status', 'active');
+        return { ...c, enrolledCount: count ?? 0 };
+      }));
+      return withCounts;
+    }
+
+    async function loadRecentEnrolments() {
+      // enrolments.user_id and profiles.id both FK to auth.users independently
+      // (no direct FK between the two), so PostgREST can't embed profiles via
+      // enrolments — fetch separately and merge client-side.
+      const { data, error } = await supabaseClient
+        .from('enrolments')
+        .select('id, status, enrolled_at, user_id, course_id, courses(title)')
+        .order('enrolled_at', { ascending: false })
+        .limit(25);
+      if (error) { console.error(error); return []; }
+      if (!data.length) return data;
+
+      const userIds = [...new Set(data.map((r) => r.user_id))];
+      const { data: profiles, error: profErr } = await supabaseClient
+        .from('profiles')
+        .select('id, email, full_name')
+        .in('id', userIds);
+      if (profErr) console.error(profErr);
+      const profileMap = new Map((profiles || []).map((p) => [p.id, p]));
+
+      return data.map((r) => ({ ...r, profiles: profileMap.get(r.user_id) || null }));
+    }
+
+    function renderCoursesTable(courses) {
+      return `
+        <table id="courses-table">
+          <thead><tr><th>Course</th><th>Published</th><th>Price</th><th>Enrolled</th></tr></thead>
+          <tbody>
+            ${courses.map((c) => `
+              <tr data-course-id="${c.id}">
+                <td><a href="/learn/${escapeHtml(c.slug)}">${escapeHtml(c.title)}</a></td>
+                <td><input type="checkbox" class="publish-toggle" ${c.is_published ? 'checked' : ''} /></td>
+                <td>
+                  <input type="number" class="price-input" min="0" step="0.01" style="width:90px;"
+                    value="${(c.price_pence / 100).toFixed(2)}" /> GBP
+                </td>
+                <td>${c.enrolledCount}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        <p class="status-msg" id="courses-status"></p>
+      `;
+    }
+
+    function renderEnrolmentsTable(rows) {
+      if (!rows.length) return '<p style="color:var(--text-mid); font-size:0.88rem;">No enrolments yet.</p>';
+      return `
+        <table>
+          <thead><tr><th>Student</th><th>Course</th><th>Status</th><th>Enrolled</th><th></th></tr></thead>
+          <tbody>
+            ${rows.map((r) => `
+              <tr data-enrolment-id="${r.id}" data-course-id="${r.course_id}">
+                <td>${escapeHtml(r.profiles?.full_name || r.profiles?.email || r.user_id)}</td>
+                <td>${escapeHtml(r.courses?.title || '')}</td>
+                <td>${escapeHtml(r.status)}</td>
+                <td>${new Date(r.enrolled_at).toLocaleDateString('en-GB')}</td>
+                <td>${r.status === 'active' ? '<button class="btn btn--navy-outline inline-btn revoke-btn">Revoke</button>' : ''}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    async function renderAdmin(session, profile, courses) {
+      const enrolments = await loadRecentEnrolments();
+
+      document.getElementById('content').innerHTML = `
+        <h1 class="admin-title">Admin</h1>
+
+        <section class="admin-section">
+          <h2>Courses</h2>
+          ${renderCoursesTable(courses)}
+        </section>
+
+        <section class="admin-section">
+          <h2>Grant enrolment</h2>
+          <div class="grant-form">
+            <div>
+              <label for="grant-email">Student email</label>
+              <input type="email" id="grant-email" placeholder="name@example.com" />
+            </div>
+            <div>
+              <label for="grant-course">Course</label>
+              <select id="grant-course">
+                ${courses.map((c) => `<option value="${c.id}">${escapeHtml(c.title)}</option>`).join('')}
+              </select>
+            </div>
+            <button class="btn btn--gold inline-btn" id="grant-btn" style="height:38px;">Grant access</button>
+          </div>
+          <p class="status-msg" id="grant-status"></p>
+        </section>
+
+        <section class="admin-section">
+          <h2>Recent enrolments</h2>
+          <div id="enrolments-table">${renderEnrolmentsTable(enrolments)}</div>
+        </section>
+      `;
+
+      // Course publish toggle + price edits
+      document.querySelectorAll('#courses-table tr[data-course-id]').forEach((row) => {
+        const courseId = row.dataset.courseId;
+        const toggle = row.querySelector('.publish-toggle');
+        const priceInput = row.querySelector('.price-input');
+        const status = document.getElementById('courses-status');
+
+        toggle.addEventListener('change', async () => {
+          const { error } = await supabaseClient
+            .from('courses')
+            .update({ is_published: toggle.checked })
+            .eq('id', courseId);
+          status.textContent = error ? error.message : 'Saved.';
+          status.className = `status-msg ${error ? 'error' : 'success'}`;
+        });
+
+        priceInput.addEventListener('change', async () => {
+          const pence = Math.round(parseFloat(priceInput.value || '0') * 100);
+          const { error } = await supabaseClient
+            .from('courses')
+            .update({ price_pence: pence })
+            .eq('id', courseId);
+          status.textContent = error ? error.message : 'Saved.';
+          status.className = `status-msg ${error ? 'error' : 'success'}`;
+        });
+      });
+
+      // Grant enrolment
+      document.getElementById('grant-btn').addEventListener('click', async () => {
+        const email = document.getElementById('grant-email').value.trim();
+        const courseId = document.getElementById('grant-course').value;
+        const grantStatus = document.getElementById('grant-status');
+        grantStatus.className = 'status-msg';
+        grantStatus.textContent = '';
+
+        if (!email) {
+          grantStatus.textContent = 'Enter a student email.';
+          grantStatus.className = 'status-msg error';
+          return;
+        }
+
+        const { data: matchProfile, error: lookupErr } = await supabaseClient
+          .from('profiles')
+          .select('id, email, full_name')
+          .ilike('email', email)
+          .maybeSingle();
+
+        if (lookupErr || !matchProfile) {
+          grantStatus.textContent = 'No account found with that email — they need to sign up first.';
+          grantStatus.className = 'status-msg error';
+          return;
+        }
+
+        const { error: grantErr } = await supabaseClient
+          .from('enrolments')
+          .upsert(
+            { user_id: matchProfile.id, course_id: courseId, status: 'active' },
+            { onConflict: 'user_id,course_id' }
+          );
+
+        if (grantErr) {
+          grantStatus.textContent = grantErr.message;
+          grantStatus.className = 'status-msg error';
+          return;
+        }
+
+        grantStatus.textContent = `Granted access to ${matchProfile.full_name || matchProfile.email}.`;
+        grantStatus.className = 'status-msg success';
+        document.getElementById('grant-email').value = '';
+
+        const updatedCourses = await loadCourses();
+        const updatedEnrolments = await loadRecentEnrolments();
+        document.querySelector('.admin-section:nth-of-type(1)').innerHTML = `<h2>Courses</h2>${renderCoursesTable(updatedCourses)}`;
+        document.getElementById('enrolments-table').innerHTML = renderEnrolmentsTable(updatedEnrolments);
+        attachRevokeHandlers();
+        attachCourseHandlers(updatedCourses);
+      });
+
+      function attachRevokeHandlers() {
+        document.querySelectorAll('.revoke-btn').forEach((btn) => {
+          btn.addEventListener('click', async (e) => {
+            const row = e.target.closest('tr');
+            const enrolmentId = row.dataset.enrolmentId;
+            btn.disabled = true;
+            const { error } = await supabaseClient
+              .from('enrolments')
+              .update({ status: 'cancelled' })
+              .eq('id', enrolmentId);
+            if (!error) {
+              row.querySelector('td:nth-child(3)').textContent = 'cancelled';
+              btn.remove();
+              const courseRow = document.querySelector(`#courses-table tr[data-course-id="${row.dataset.courseId}"]`);
+              const countCell = courseRow?.querySelectorAll('td')[3];
+              if (countCell) countCell.textContent = Math.max(0, parseInt(countCell.textContent, 10) - 1);
+            } else {
+              btn.disabled = false;
+              alert(error.message);
+            }
+          });
+        });
+      }
+      attachRevokeHandlers();
+
+      function attachCourseHandlers(courseList) {
+        document.querySelectorAll('#courses-table tr[data-course-id]').forEach((row) => {
+          const courseId = row.dataset.courseId;
+          const toggle = row.querySelector('.publish-toggle');
+          const priceInput = row.querySelector('.price-input');
+          const status = document.getElementById('courses-status');
+          toggle.addEventListener('change', async () => {
+            const { error } = await supabaseClient.from('courses').update({ is_published: toggle.checked }).eq('id', courseId);
+            status.textContent = error ? error.message : 'Saved.';
+            status.className = `status-msg ${error ? 'error' : 'success'}`;
+          });
+          priceInput.addEventListener('change', async () => {
+            const pence = Math.round(parseFloat(priceInput.value || '0') * 100);
+            const { error } = await supabaseClient.from('courses').update({ price_pence: pence }).eq('id', courseId);
+            status.textContent = error ? error.message : 'Saved.';
+            status.className = `status-msg ${error ? 'error' : 'success'}`;
+          });
+        });
+      }
+    }
+
+    (async () => {
+      const session = await mycpRequireAuth();
+      if (!session) return;
+
+      const profile = await mycpGetProfile();
+      renderNav(session, profile);
+
+      if (!profile?.is_admin) {
+        document.getElementById('content').innerHTML = `
+          <div class="denied">
+            <h1 class="admin-title" style="font-size:1.3rem;">Admins only</h1>
+            <p>This area is restricted. <a href="/learn/">Back to courses</a></p>
+          </div>
+        `;
+        return;
+      }
+
+      const courses = await loadCourses();
+      await renderAdmin(session, profile, courses);
+    })();
+  </script>
+</body>
+</html>

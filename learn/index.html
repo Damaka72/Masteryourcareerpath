@@ -89,6 +89,7 @@
     async function renderNav(session, profile) {
       if (session) {
         navRight.innerHTML = `
+          ${profile?.is_admin ? '<a href="/learn/admin">Admin</a>' : ''}
           <a href="/learn/account">${escapeHtml(profile?.full_name || session.user.email)}</a>
           <a href="#" id="signout-link">Sign out</a>
         `;
